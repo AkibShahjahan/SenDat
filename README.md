@@ -1,9 +1,13 @@
 # Sendat
-![Sendat](./icon.jpg)
+![](./icon.jpg)
 
 ## Summary
 
 ## Dependencies
+
+## To Do
+* Live Editing 
+* Forking 
 
 ## Authors
 * Akib Shahjahan
