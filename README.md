@@ -4,6 +4,10 @@
 ## Summary
 
 ## Dependencies
+* MongoDB
+* Express.js
+* Angular.js
+* Node.js
 
 ## To Do
 * Live Editing 
