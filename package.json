@@ -1,0 +1,24 @@
+{
+  "name": "sendat",
+  "version": "1.0.0",
+  "description": "To send stuff",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkibShahjahan/Sendat.git"
+  },
+  "author": "pushkin, sufi, and akib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AkibShahjahan/Sendat/issues"
+  },
+  "homepage": "https://github.com/AkibShahjahan/Sendat#readme"
+}
