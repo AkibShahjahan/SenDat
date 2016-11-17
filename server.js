@@ -1,51 +1,68 @@
 var express = require('express');
 var app = express();
+var bodyParser = require("body-parser");
+
+//bodyParser extracts the body portion of your request and makes its 
+// accessible through req.body. so that it is easier to get the object.
+app.use(bodyParser.json());
+
+
+//Allows you to access URL Encoded body stuff
+app.use(bodyParser.urlencoded());
+
 
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://<pushakib>:<pushakib>@ds029197.mlab.com:29197/sendat")
+mongoose.connect("mongodb://pushakib:pushakib@ds029197.mlab.com:29197/sendat");
 
-var http = require('http');
-var dispatcher = require('httpdispatcher');
-var fs = require('fs');
-// var express = require('express');
-// var app = express();
-
-dispatcher.setStatic('resources');
-
-app.get('/',function(req, res) {
-  res.send("<h1>Welcome to Sendat</h1>");
-//Lets define a port we want to listen to
-const PORT=8080; 
-
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-      try {
-        //log the request on console
-        console.log(request.url);
-        //Disptach
-        dispatcher.dispatch(request, response);
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-//ROUTES
-dispatcher.onGet("/home", function(req,res){
-    fs.readFile('./index.html', function(err, html){
-        if (err){
-            throw err;
-        }
-        res.writeHead(200, {'Content-Type' : 'text/html'});
-        res.end(html, 'utf-8');
-    });
+mongoose.connection.once("open", function() {
+    console.log("Workin...");
+})
+var contentSchema = new mongoose.Schema({
+    writing: String,
+    title : String
 });
 
-app.listen(3000);
-//Create a server
-var server = http.createServer(handleRequest);
+var Content = mongoose.model("Content", contentSchema);
+
+var newpost = new Content({ writing : 'dog' , title : "dog" });
+
+var PORT = 3000
+
+app.post('/content' , function(req , res){
+    var writing = req.body.writing;
+    var title = req.body.title;
+    var newContent = {
+        writing: writing,
+        title: title
+    }
+    Content.create(newContent, function(err, con) {
+        console.log(con);
+    });
+})
+
+
+
+app.get('/content/:id' , function(req , res){
+    Content.findById(req.params.id, function(err, content) {
+        if(content) {
+            res.json(content);
+        } else {
+            res.json({error: "No content found"});
+        }
+    })
+});
+
+// app.put('/content', function(req, res) {
+//     var content_id = req.body.content_id;
+//     var writing = req.body.writing;
+//     var title = req.body.title;
+//     Content.findBy
+// })
+
 
 //Lets start our server
-server.listen(PORT, function(){
+app.listen(PORT, function(){
     //Callback triggered when server is successfully listening. Hurray!
     console.log("Server listening on: http://localhost:%s", PORT);
 });
+
