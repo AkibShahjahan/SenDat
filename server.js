@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var fs = require('fs');
  var path = require('path');
 
-//bodyParser extracts the body portion of your request and makes its 
+//bodyParser extracts the body portion of your request and makes its
 // accessible through req.body. so that it is easier to get the object.
 app.use(bodyParser.json());
 
@@ -34,13 +34,7 @@ var newpost = new Content({ writing : 'dog' , title : "dog" });
 var PORT = 3000
 
 app.get('/' , function(req , res){
-    fs.readFile('./index.html', function(err, html){
-        if (err){
-            throw err;
-        }
-        res.writeHead(200, {'Content-Type' : 'text/html'});
-        res.end(html);
-    });
+  console.log("Going to index.html...");
 })
 
 app.post('/content' , function(req , res){
@@ -82,4 +76,3 @@ app.listen(PORT, function(){
     //Callback triggered when server is successfully listening. Hurray!
     console.log("Server listening on: http://localhost:%s", PORT);
 });
-
