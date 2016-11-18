@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html ng-app = "app" ngCloak>
+<html ng-app = "app">
 <head>
 	<title>Sendat</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,23 +6,17 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
-	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
-	 <!-- Angular Material style sheet -->
-	   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
-	 <!-- Angular Material requires Angular.js Libraries -->
-	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
-	 <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-
+	 <!-- Angular Material Dependencies -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
 </head>
-	<body ng-controller="MainController" ngCloak>
+	<body ng-controller="MainController" ng-cloak>
 		<div>
 			<h1 id="heading"> Sendat {{title}}</h1>
 		</div>
@@ -37,57 +30,32 @@
 			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
 		</div>
 
-		<input id="clickMe" type="button" value="Submit" ng-click="proceed()">
-		<md-button class="md-raised">Button</md-button>
+		 <md-button id="clickMe" class="md-raised" ng-click="proceed()">Create</md-button>
+
 
 	</body>
 </html>
 
-
-
-<!--
 <script type="text/javascript">
-
-	function proceed(){
-		var http = new XMLHttpRequest();
-		var url = "http://localhost:3000/content"
-        var params = "title=";
-		var title =  document.getElementById('titlebox').value;
-		params = params + title + "&";
-		var writing = document.getElementById('mytextbox').value;
-		params = params + "writing=" + writing;
-		http.open("POST", url, true);
-		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		http.send(params);
-	}
-
-</script> -->
-
-<script type="text/javascript">
-	var app = angular.module("app", []);
+	var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria"]);
 	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 		$scope.proceed = function() {
-		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-
-		var mydata = $.param({
-								"title": $scope.title,
-								"writing": $scope.content
-		           });
-    $http({
-        url: 'http://localhost:3000/content',
-        method: "POST",
-        data: mydata
-    })
-    .then(function(response) {
-            alert(JSON.stringify(response.data));
-    },
-    function(response) { // optional
-            // failed
-						alert("great failure");
-    });
-
-}}]);
-
-
-
+			$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+			var mydata = $.param({
+									"title": $scope.title,
+									"writing": $scope.content
+			           });
+	    $http({
+	        url: 'http://localhost:3000/content',
+	        method: "POST",
+	        data: mydata
+	    })
+	    .then(function(response) {
+	        alert(JSON.stringify(response.data));
+	    },
+	    function(response) {
+					alert("great failure");
+	    });
+		}
+	}]);
 </script>
