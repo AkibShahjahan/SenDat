@@ -2,8 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
 var fs = require('fs');
-<<<<<<< Updated upstream
- var path = require('path');
+var path = require('path');
 
 //bodyParser extracts the body portion of your request and makes its
 // accessible through req.body. so that it is easier to get the object.
@@ -34,23 +33,8 @@ var mongodb = require('mongodb');
 
 var MongoClient = mongodb.MongoClient;
 
-dispatcher.setStatic('resources');
 
 //Lets define a port we want to listen to
-const PORT=8080; 
-
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-      try {
-        //log the request on console
-        console.log(request.url);
-        //Disptach
-        dispatcher.dispatch(request, response);
-    } catch(err) {
-        console.log(err);
-    }
-}
-
 var PORT = 3000
 
 app.get('/' , function(req , res){
@@ -80,8 +64,6 @@ app.get('/content/:id' , function(req , res){
         }
     })
 });
-
-app.c
 
 // app.put('/content', function(req, res) {
 //     var content_id = req.body.content_id;
