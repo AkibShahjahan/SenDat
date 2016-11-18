@@ -44,12 +44,18 @@ app.get('/' , function(req , res){
 app.post('/content' , function(req , res){
     var writing = req.body.writing;
     var title = req.body.title;
+    console.log(title);
     var newContent = {
         writing: writing,
         title: title
     }
     Content.create(newContent, function(err, con) {
-        console.log(con);
+      console.log(con);
+        if(con) {
+          res.send("URL: localhost:3000/"+con._id);
+        } else {
+          res.send("");
+        }
     });
 })
 

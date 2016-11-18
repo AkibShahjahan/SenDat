@@ -1,34 +1,51 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app = "app" ngCloak>
 <head>
-	<title>Sendat2.0</title>
+	<title>Sendat</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
 	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
+	 <!-- Angular Material style sheet -->
+	   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+	 <!-- Angular Material requires Angular.js Libraries -->
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+	 <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+
 </head>
-<body>
-<div>
-	<h1 id="heading"> Sendat {{ title }}</h1>
-</div>
+	<body ng-controller="MainController" ngCloak>
+		<div>
+			<h1 id="heading"> Sendat {{title}}</h1>
+		</div>
 
-<div id="titlediv">
-	<input type="text" id="titlebox" ng-model="title" name="title" placeholder="Title"> 
-</div>
+		<div id="titlediv">
+			<input type="text" id="titlebox" ng-model="title" name="title" placeholder="Title">
+		</div>
 
-<div id="inputdiv">
-	<textarea id="mytextbox" placeholder="Write Here" class="wideInput"></textarea>
-	<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
-</div>
+		<div id="inputdiv">
+			<textarea id="mytextbox" ng-model="content" placeholder="Write Here" class="wideInput"></textarea>
+			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
+		</div>
 
-<input id="clickMe" type="button" value="Submit" onclick="proceed();">
-</body>
+		<input id="clickMe" type="button" value="Submit" ng-click="proceed()">
+		<md-button class="md-raised">Button</md-button>
+
+	</body>
 </html>
 
 
 
-
+<!--
 <script type="text/javascript">
 
 	function proceed(){
@@ -43,5 +60,34 @@
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		http.send(params);
 	}
+
+</script> -->
+
+<script type="text/javascript">
+	var app = angular.module("app", []);
+	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
+		$scope.proceed = function() {
+		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+		var mydata = $.param({
+								"title": $scope.title,
+								"writing": $scope.content
+		           });
+    $http({
+        url: 'http://localhost:3000/content',
+        method: "POST",
+        data: mydata
+    })
+    .then(function(response) {
+            alert(JSON.stringify(response.data));
+    },
+    function(response) { // optional
+            // failed
+						alert("great failure");
+    });
+
+}}]);
+
+
 
 </script>
