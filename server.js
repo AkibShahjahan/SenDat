@@ -1,10 +1,15 @@
 var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
+var fs = require('fs');
+ var path = require('path');
 
 //bodyParser extracts the body portion of your request and makes its 
 // accessible through req.body. so that it is easier to get the object.
 app.use(bodyParser.json());
+
+
+app.use(express.static('public'));
 
 
 //Allows you to access URL Encoded body stuff
@@ -27,6 +32,16 @@ var Content = mongoose.model("Content", contentSchema);
 var newpost = new Content({ writing : 'dog' , title : "dog" });
 
 var PORT = 3000
+
+app.get('/' , function(req , res){
+    fs.readFile('./index.html', function(err, html){
+        if (err){
+            throw err;
+        }
+        res.writeHead(200, {'Content-Type' : 'text/html'});
+        res.end(html);
+    });
+})
 
 app.post('/content' , function(req , res){
     var writing = req.body.writing;
@@ -51,6 +66,8 @@ app.get('/content/:id' , function(req , res){
         }
     })
 });
+
+app.c
 
 // app.put('/content', function(req, res) {
 //     var content_id = req.body.content_id;

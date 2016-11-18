@@ -1,0 +1,66 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+body{
+	height: 100%;
+	width: 100%;
+}
+
+#heading{
+	font-size: 40px;
+	text-align: center;
+	font-family: 'Oswald' ,sans-serif ;
+}
+
+#titlediv{
+	width: 100px;
+	float: top;
+	margin-bottom: 30px;
+	font-family: 'Oswald' ,sans-serif ;
+	margin-left: 20px;
+}
+
+#titlebox {
+	border: 0px solid;
+	font-size: 20px;
+	background-color: transparent;
+	font-family: 'Oswald' ,sans-serif ;
+}
+
+.wideInput {
+	font-size: 20px;
+	text-align: left;
+    padding-left:0;
+    padding-top:0;
+    padding-bottom:0.4em;
+    padding-right: 0.4em;
+    width: 600px;
+    height: 600px;
+    border: 0px solid;
+    margin-left: 20px;
+    font-family: 'Oswald' ,sans-serif ;
+}
+
+
+#clickMe {
+	font-size: 30px;
+	font-family: 'Oswald' ,sans-serif ;
+	margin-left: 20px;
+
+}
+/*#writing {
+	font-size: 20px;
+	width: 500px;
+	height: 500px;
+	background-color: transparent;
+    border: 0px solid;
+    padding-left:0;
+	padding-top:0;
+	padding-bottom:0.4em;
+	padding-right: 0.4em;
+}*/
+
