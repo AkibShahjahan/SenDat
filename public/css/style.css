@@ -21,7 +21,17 @@ body{
 	float: top;
 	margin-bottom: 30px;
 	font-family: 'Oswald' ,sans-serif ;
-	margin-left: 20px;
+	margin-left: 30px;
+}
+
+#coursetitle{
+	width: 100px;
+	font-size: 20px;
+	font-family: 'Oswald' ,sans-serif ;
+	float: center;
+	background-color: transparent;
+	border: 0px solid;
+	color: #f4f400;
 }
 
 #titlebox {
@@ -41,10 +51,9 @@ body{
     width: 600px;
     height: 600px;
     border: 0px solid;
-    margin-left: 20px;
+    margin-left: 30px;
     font-family: 'Oswald' ,sans-serif ;
 }
-
 
 #clickMe {
 	font-size: 20px;
@@ -55,3 +64,34 @@ body{
 	margin-top: 10px;
   /*position: fixed;*/
 }
+
+#gobutton{
+	font-size: 15px;
+	font-family: 'Oswald' ,sans-serif ;
+}
+
+#normalSendatbutton {
+	font-size: 15px;
+	font-family: 'Oswald' ,sans-serif ;
+	margin-top: 20px;
+	width: 200px;
+	margin-left: 0px;
+	margin-bottom: 20px;
+
+}
+
+#my_popup{
+	padding: 15px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	border: 2px solid white;
+	border-radius: 25px;
+
+}
+
+#my_popup_text{
+	font-size: 25px;
+	font-family: 'Oswald' ,sans-serif ;
+	color: white;
+}
+

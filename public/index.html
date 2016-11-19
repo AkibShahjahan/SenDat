@@ -1,10 +1,13 @@
 <html ng-app = "app">
+<html lang="en">
 <head>
 	<title>Sendat</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!--For the popup on the main screen-->
+	<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
 
 	 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
@@ -17,12 +20,39 @@
 
 </head>
 	<body ng-controller="MainController" ng-cloak>
+
+		<div id="my_popup">
+			<h3 id="my_popup_text">Enter Course Code</h3> 
+			<input type="text" id="coursetitle" ng-model="coursecode" placeholder="CS 246">
+			<!-- Add an optional button to close the popup -->
+	    <md-button id="gobutton" class="md-raised" ng-click="redirect()">Go</md-button>
+	    <div>
+	    	<md-button id="normalSendatbutton" class="md-raised my_popup_close" >Normal Sendat</md-button>
+	    </div>
+	    
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+	  		$('#my_popup').popup({
+	  			autoopen: true,
+	  			transition: 'all 0.3s',
+	  			color: "#000",
+	  			opacity: 0.8,
+	  			blur: false,
+	  			scrolllock: true
+	  		});
+  		});
+		</script>
+
+		
+
 		<div>
 			<h1 id="heading"> Sendat {{title}}</h1>
 		</div>
 
 		<div id="titlediv">
-			<input type="text" id="titlebox" ng-model="title" name="title" placeholder="Title">
+			<input type="text" id="titlebox" ng-model="title" placeholder="Title">
 		</div>
 
 		<div id="inputdiv">
@@ -57,5 +87,16 @@
 					alert("great failure");
 	    });
 		}
+
+		$scope.redirect = function (){
+			var coursecode = $scope.coursecode;
+			coursecode = coursecode.toLowerCase();
+			coursecode = coursecode.replace(/\s/g, '');
+			$window.location.href = "http://localhost:3000/courses/"+ coursecode;
+		}
+
+
+
+
 	}]);
 </script>
