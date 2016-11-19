@@ -30,7 +30,7 @@
 			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
 		</div>
 
-		 <md-button id="clickMe" class="md-raised" ng-click="proceed()">Create</md-button>
+		 <md-button id="clickMe" class="md-raised md-primary" ng-click="proceed()">Create</md-button>
 
 
 	</body>
@@ -51,7 +51,7 @@
 	        data: mydata
 	    })
 	    .then(function(response) {
-	        alert(JSON.stringify(response.data));
+	        $window.location.href = response.data;
 	    },
 	    function(response) {
 					alert("great failure");

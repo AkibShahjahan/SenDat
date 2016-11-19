@@ -54,7 +54,7 @@ app.post('/content' , function(req , res){
     Content.create(newContent, function(err, con) {
       console.log(con);
         if(con) {
-          res.send("URL: localhost:3000/"+con._id);
+          res.send("http://localhost:3000/"+con._id);
         } else {
           res.send("");
         }
@@ -62,6 +62,35 @@ app.post('/content' , function(req , res){
 })
 
 
+app.get('/:id' , function(req , res){
+    fs.readFile('./main.html', function(err, html){
+        if (err){
+            throw err;
+        }
+        res.writeHead(200, {'Content-Type' : 'text/html'});
+        res.end(html)
+    });
+});
+
+app.delete('/content/deleteall' , function(req , res){
+    Content.remove({} , function(err , res){
+        if(err){
+            throw err;
+        } else {
+            res.end('success');
+        }
+    });
+});
+
+app.get('/content/all' , function(req , res){
+    Content.find({}, function(req, contents) {
+        if(contents) {
+            res.json(contents);
+        } else {
+            res.json({error: "No content found"});
+        }
+    });
+});
 
 app.get('/content/:id' , function(req , res){
     Content.findById(req.params.id, function(err, content) {
@@ -72,6 +101,8 @@ app.get('/content/:id' , function(req , res){
         }
     })
 });
+
+
 
 // app.put('/content', function(req, res) {
 //     var content_id = req.body.content_id;
