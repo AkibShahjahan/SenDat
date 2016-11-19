@@ -1,0 +1,80 @@
+<html ng-app = "app">
+<head>
+	<title>Sendat</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
+
+	 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+
+	 <!-- Angular Material Dependencies -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+
+
+</head>
+	<body ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
+		<div>
+			<h1 id="heading"> Sendat {{title}}</h1>
+		</div>
+
+		<div id="titlediv">
+			<input type="text" id="titlebox" ng-model="title" name="title" placeholder="Title" readonly>
+		</div>
+
+		<div id="inputdiv">
+			<textarea id="mytextbox" ng-model="content" placeholder="Write Here" class="wideInput" readonly></textarea>
+			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
+		</div>
+
+	</body>
+</html>
+
+<script type="text/javascript">
+	var app = angular.module("app", ["ngMaterial"]);
+	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
+
+		$scope.gettingClient = function() {
+			$http({
+				method: "GET",
+	        	url: 'http://localhost:3000/content/' + getId()
+	   		})
+		    .then(function(response) {
+		    	$scope.title = response.data.title;	
+		        $scope.content = response.data.writing;
+		    },
+		    function(response) {
+						alert("great failure");
+		    });
+		}
+
+		var getId = function() {
+
+			var url = ($window.location + '');
+			var id = "";
+			var start = false;
+			var len = url.length;
+			var slashCount = 0;
+			for(var i = 0; i<len; i++) {
+				if(start) {
+					id += url[i];
+				} else if(url[i] === "/"){
+					slashCount++;
+					if(slashCount === 3) {
+						start = true;
+					}
+				}
+			}
+			return id;
+		}
+
+
+	}]);
+
+
+
+</script>
