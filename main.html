@@ -44,7 +44,7 @@
 	        	url: 'http://localhost:3000/content/' + getId()
 	   		})
 		    .then(function(response) {
-		    	$scope.title = response.data.title;	
+		    	$scope.title = response.data.title;
 		        $scope.content = response.data.writing;
 		    },
 		    function(response) {

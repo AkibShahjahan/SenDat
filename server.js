@@ -26,7 +26,8 @@ mongoose.connection.once("open", function() {
 })
 var contentSchema = new mongoose.Schema({
     writing: String,
-    title : String
+    title : String,
+    courseCode: String
 });
 
 var Content = mongoose.model("Content", contentSchema);
@@ -46,10 +47,11 @@ app.get('/' , function(req , res){
 app.post('/content' , function(req , res){
     var writing = req.body.writing;
     var title = req.body.title;
-    console.log(title);
+    var courseCode = req.body.course_code;
     var newContent = {
         writing: writing,
-        title: title
+        title: title,
+        courseCode: "cs246"
     }
     Content.create(newContent, function(err, con) {
       console.log(con);
@@ -61,7 +63,15 @@ app.post('/content' , function(req , res){
     });
 })
 
-
+app.get('/courses/:courseid' , function(req , res){
+    fs.readFile('./note.html', function(err, html){
+        if (err){
+            throw err;
+        }
+        res.writeHead(200, {'Content-Type' : 'text/html'});
+        res.end(html)
+    });
+});
 app.get('/:id' , function(req , res){
     fs.readFile('./main.html', function(err, html){
         if (err){
@@ -102,15 +112,16 @@ app.get('/content/:id' , function(req , res){
     })
 });
 
-
-
-// app.put('/content', function(req, res) {
-//     var content_id = req.body.content_id;
-//     var writing = req.body.writing;
-//     var title = req.body.title;
-//     Content.findBy
-// })
-
+app.get('/content/courses/:courseCode', function(req, res) {
+  var courseCode = req.params.courseCode;
+  Content.find({"courseCode": courseCode}, function(err, contents) {
+    if(contents) {
+      res.send(contents);
+    } else {
+      res.send([]);
+    }
+  })
+})
 
 //Lets start our server
 app.listen(PORT, function(){
