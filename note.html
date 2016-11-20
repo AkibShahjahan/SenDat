@@ -3,10 +3,23 @@
 	<title>Sendat</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+	  <!-- Compiled and minified CSS -->
+ 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+	  <!-- Compiled and minified JavaScript -->
+ 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+ 	 <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+ 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
 	 <!-- Angular Material Dependencies -->
@@ -18,42 +31,67 @@
 </head>
 	<body ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
 
-    <ul>
-      <li><a class="active">{{courseCode}}</a></li>
-			<div ng-repeat="item in notesList">
-				<li><a href="http://localhost:3000/{{item._id}}">{{item.title}}</a></li>
-			</div>
-    </ul>
+		<ul id="slide-out" class="side-nav fixed yellow darken-2">
+		    <li><div class="userView">
+		      <a class="active">{{courseCode}}</a>
+		    </div></li>
 
-    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+		    <ul>
+			    <div ng-repeat="item in notesList">
+					<li><a class="waves effect font" href="http://localhost:3000/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
+					<li><div class="divider"></div></li>
+				</div>
+		    </ul>
+	 	</ul>
+
+	   <a href="#" id="menubutton" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        
   		<div>
   			<h1 id="heading"> Sendat {{title}}</h1>
   		</div>
 
-  		<div id="titlediv">
+  		<div id="titlediv_note">
   			<input type="text" id="titlebox" ng-model="title" name="title" placeholder="Title">
   		</div>
 
-  		<div id="inputdiv">
-  			<textarea id="mytextbox" ng-model="content" placeholder="Write Here" class="wideInput"></textarea>
+  		<div id="inputdiv_note">
+  			<textarea id="mytextbox" ng-model="content"></textarea>
   			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
   		</div>
 
+  		<script type="text/javascript">
+			var simplemde = new SimpleMDE({
+			    element: document.getElementById("mytextbox")
+			});
+		</script>
+
   		 <md-button id="clickMe" class="md-raised md-primary" ng-click="proceed()">Create</md-button>
-     </div>
+    <!-- </div>-->
 
 	</body>
 </html>
 
 <script type="text/javascript">
+
+    $(".button-collapse").sideNav();
+	var mq = window.matchMedia( "(min-width: 500px)" );
+	if (mq.matches) {
+  		
+	} else {
+  		// window width is less than 500px
+  		document.getElementById("slide-out").className = "side-nav yellow darken-2"
+	}
+
 	var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria"]);
 	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 		$scope.proceed = function() {
 			$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 			var mydata = $.param({
 									"title": $scope.title,
-									"writing": $scope.content
-			           });
+									"writing": simplemde.value(),
+									"course_code": $scope.courseCode
+
+			           		});
 	    $http({
 	        url: 'http://localhost:3000/content',
 	        method: "POST",
@@ -68,7 +106,7 @@
 		}
 
     var getCourseCode = function() {
-			var url = ($window.location + '');
+			var url = $window.location.href + '';
 			var id = "";
 			var start = false;
 			var len = url.length;
@@ -90,7 +128,7 @@
 			$scope.courseCode = getCourseCode();
 			$http({
 				method: "GET",
-	        	url: 'http://localhost:3000/content/courses/' + $scope.courseCode.toLowerCase()
+	        	url: 'http://localhost:3000/content/courses/' + $scope.courseCode.toUpperCase()
 	   		})
 		    .then(function(response) {
 		    	$scope.notesList = response.data;
@@ -99,7 +137,5 @@
 						alert("great failure");
 		  });
 		}
-
-
 	}]);
 </script>

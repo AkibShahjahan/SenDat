@@ -14,9 +14,18 @@ body{
 	font-size: 40px;
 	text-align: center;
 	font-family: 'Oswald' ,sans-serif ;
+	margin-top: 20px;
 }
 
 #titlediv{
+	width: 100px;
+	float: top;
+	margin-bottom: 30px;
+	font-family: 'Oswald' ,sans-serif ;
+	margin-left: 50px;
+}
+
+#titlediv_note{
 	width: 100px;
 	float: top;
 	margin-bottom: 30px;
@@ -41,6 +50,36 @@ body{
 	font-family: 'Oswald' ,sans-serif ;
 }
 
+#inputdiv{
+	padding-left:0;
+    padding-top:0;
+    width: 90%;
+    height: 550px;
+    padding-bottom:0.4em;
+    padding-right: 0.4em;
+    margin-left: 30px;
+}
+
+#inputdiv_note{
+	padding-left:0;
+    padding-top:0;
+    width: 800px;
+    height: 600px;
+    padding-bottom:0.4em;
+    padding-right: 0.4em;
+    margin-left: 30px;
+}
+
+#clickMe {
+	font-size: 20px;
+	font-family: 'Oswald' ,sans-serif ;
+	margin-right: 20px;
+	padding: 3px;
+	margin-top: 120px;
+	margin-right: 70px;
+	float: right;
+}
+
 .wideInput {
 	font-size: 20px;
 	text-align: left;
@@ -55,42 +94,10 @@ body{
     font-family: 'Oswald' ,sans-serif ;
 }
 
-#clickMe {
-	font-size: 20px;
-	font-family: 'Oswald' ,sans-serif ;
-	margin-right: 20px;
-	padding: 3px;
+#menubutton{
 	margin-left: 20px;
-	margin-top: 10px;
-  /*position: fixed;*/
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 25%;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
+	margin-top: 40px;
+	display: none;
 }
 
 #gobutton{
@@ -121,4 +128,33 @@ li a:hover:not(.active) {
 	font-size: 25px;
 	font-family: 'Oswald' ,sans-serif ;
 	color: white;
+}
+
+.side-nav a {
+	font-size: 20px;
+	font-family: 'Oswald' ,sans-serif ;
+	color: white;
+
+}
+
+.font {
+
+}
+
+
+@media screen and (min-width: 980px) {
+	#titlediv_note {
+		margin-left: 330px;
+	}
+	#inputdiv_note{
+		margin-left: 330px;
+	}
+}
+
+@media screen  and (max-width: 979px) {
+   #menubutton { display:inline-block; }
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+   #menubutton { display:inline-block; }
 }

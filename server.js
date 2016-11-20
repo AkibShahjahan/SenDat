@@ -48,10 +48,13 @@ app.post('/content' , function(req , res){
     var writing = req.body.writing;
     var title = req.body.title;
     var courseCode = req.body.course_code;
+    if(courseCode) {
+        courseCode.toUpperCase();
+    }
     var newContent = {
         writing: writing,
         title: title,
-        courseCode: "cs246"
+        courseCode: courseCode
     }
     Content.create(newContent, function(err, con) {
       console.log(con);
@@ -72,6 +75,7 @@ app.get('/courses/:courseid' , function(req , res){
         res.end(html)
     });
 });
+
 app.get('/:id' , function(req , res){
     fs.readFile('./main.html', function(err, html){
         if (err){
@@ -114,6 +118,9 @@ app.get('/content/:id' , function(req , res){
 
 app.get('/content/courses/:courseCode', function(req, res) {
   var courseCode = req.params.courseCode;
+  if(courseCode) {
+    courseCode.toUpperCase();
+  }
   Content.find({"courseCode": courseCode}, function(err, contents) {
     if(contents) {
       res.send(contents);

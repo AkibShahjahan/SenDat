@@ -12,6 +12,9 @@
 
 	 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
 	 <!-- Angular Material Dependencies -->
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
@@ -56,9 +59,16 @@
 		</div>
 
 		<div id="inputdiv">
-			<textarea id="mytextbox" ng-model="content" placeholder="Write Here" class="wideInput"></textarea>
+			<textarea id="mytextbox" ng-model="content" placeholder="Write Here" class=""></textarea>
 			<!--<input type="text" id="writing" name="text_name" placeholder="Writing">-->
 		</div>
+
+		<script type="text/javascript">
+			var simplemde = new SimpleMDE({
+			    element: document.getElementById("mytextbox")
+			});
+		</script>
+
 
 		 <md-button id="clickMe" class="md-raised md-primary" ng-click="proceed()">Create</md-button>
 
@@ -67,13 +77,15 @@
 </html>
 
 <script type="text/javascript">
+    
 	var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria"]);
 	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 		$scope.proceed = function() {
 			$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 			var mydata = $.param({
 									"title": $scope.title,
-									"writing": $scope.content
+									"writing": simplemde.value(),
+									"coursecode" : $scope.coursecode
 			           });
 	    $http({
 	        url: 'http://localhost:3000/content',
@@ -93,6 +105,7 @@
 			coursecode = coursecode.toLowerCase();
 			coursecode = coursecode.replace(/\s/g, '');
 			$window.location.href = "http://localhost:3000/courses/"+ coursecode;
+			
 		}
 
 
