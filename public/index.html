@@ -1,4 +1,4 @@
-<html ng-app = "app">
+<html>
 <html lang="en">
 <head>
 	<title>Sendat</title>
@@ -21,18 +21,20 @@
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
+	 <script src="controllers/indexController.js"></script>
+
 </head>
-	<body ng-controller="MainController" ng-cloak>
+	<body ng-app = "app" ng-controller="MainController" ng-cloak>
 
 		<div id="my_popup">
-			<h3 id="my_popup_text">Enter Course Code</h3> 
+			<h3 id="my_popup_text">Enter Course Code</h3>
 			<input type="text" id="coursetitle" ng-model="coursecode" placeholder="CS 246">
 			<!-- Add an optional button to close the popup -->
 	    <md-button id="gobutton" class="md-raised" ng-click="redirect()">Go</md-button>
 	    <div>
 	    	<md-button id="normalSendatbutton" class="md-raised my_popup_close" >Normal Sendat</md-button>
 	    </div>
-	    
+
 		</div>
 
 		<script type="text/javascript">
@@ -47,8 +49,6 @@
 	  		});
   		});
 		</script>
-
-		
 
 		<div>
 			<h1 id="heading"> Sendat {{title}}</h1>
@@ -75,41 +75,3 @@
 
 	</body>
 </html>
-
-<script type="text/javascript">
-    
-	var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria"]);
-	app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
-		$scope.proceed = function() {
-			$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-			var mydata = $.param({
-									"title": $scope.title,
-									"writing": simplemde.value(),
-									"coursecode" : $scope.coursecode
-			           });
-	    $http({
-	        url: 'http://localhost:3000/content',
-	        method: "POST",
-	        data: mydata
-	    })
-	    .then(function(response) {
-	        $window.location.href = response.data;
-	    },
-	    function(response) {
-					alert("great failure");
-	    });
-		}
-
-		$scope.redirect = function (){
-			var coursecode = $scope.coursecode;
-			coursecode = coursecode.toLowerCase();
-			coursecode = coursecode.replace(/\s/g, '');
-			$window.location.href = "http://localhost:3000/courses/"+ coursecode;
-			
-		}
-
-
-
-
-	}]);
-</script>
