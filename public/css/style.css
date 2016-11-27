@@ -5,24 +5,112 @@ button:focus {
     outline: none;
 }
 
+html{
+	min-width: 1700px;
+	max-width: 1700px;
+	margin: 0 auto;
+}
+
 body{
 	height: 100%;
 	width: 100%;
+}
+
+*:focus {outline: 0;}
+
+.container {
+  border: 0px solid #ccc;
+  box-sizing: border-box;
+  display: inline-block;
+  font-family: 'Oswald' ,sans-serif ;
+  width: 100%;
+
+}
+
+#centerdiv {
+	height:100%;
+	margin-top: 30px;
+	margin-right: 25%;
+	margin-left: 25%;
+}
+
+#searchinput{
+	 border: 0px solid;
+	 font-family: 'Dosis' ,sans-serif ;
+	 font-size: 17px;
+}
+
+.search input {
+  width: 250px;
+  height: 32px;
+  border: 0px solid;
+}
+
+.search input { text-indent: 32px;}
+
+.search .fa-search { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#searchbar {
+	margin-right: 30%;
+	margin-left: 25%;
+	padding-left: 12px;
+	border: 0px solid;
+}
+
+#head-div {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #heading{
 	font-size: 40px;
 	text-align: center;
 	font-family: 'Oswald' ,sans-serif ;
-	margin-top: 20px;
+	margin: 0px;
+	padding: 0px;
 }
 
-#titlediv{
-	width: 100px;
-	float: top;
-	margin-bottom: 30px;
+#title_bar{
+	width: 50%;
+	margin-bottom: 25px;
+	margin-top: 10px;
 	font-family: 'Oswald' ,sans-serif ;
-	margin-left: 50px;
+	margin-left: 25%;
+	padding-left: 12px;
+}
+
+#pubbut {
+	float: right;
+	margin-top: -5px;
+}
+
+.block {
+	display: inline-block;
+}
+
+#titlebox {
+	border: 0px solid;
+	font-size: 30px;
+	height: 35px;
+	display: inline-block;
+	background-color: transparent;
+	font-family: 'Oswald' ,sans-serif ;
+}
+
+#coursebox {
+	width: 100px;
+	margin-left: 300px;
+	border: 0px solid;
+	font-size: 20px;
+	height: 20px;
+	display: inline-block;
+	background-color: transparent;
+	font-family: 'Oswald' ,sans-serif ;
 }
 
 #titlediv_note{
@@ -43,13 +131,6 @@ body{
 	color: #f4f400;
 }
 
-#titlebox {
-	border: 0px solid;
-	font-size: 20px;
-	background-color: transparent;
-	font-family: 'Oswald' ,sans-serif ;
-}
-
 #inputdiv{
 	padding-left:0;
     padding-top:0;
@@ -57,7 +138,9 @@ body{
     height: 550px;
     padding-bottom:0.4em;
     padding-right: 0.4em;
-    margin-left: 30px;
+    font-family: 'Oswald' ,sans-serif ;
+    margin-left: 50px;
+    font-size: 20px;
 }
 
 #inputdiv_note{
@@ -65,12 +148,6 @@ body{
     padding-top:0;
     width: 800px;
     height: 600px;
-    padding-bottom:0.4em;
-    padding-right: 0.4em;
-    margin-left: 30px;
-}
-
-#clickMe {
 	font-size: 20px;
 	font-family: 'Oswald' ,sans-serif ;
 	margin-right: 20px;
@@ -87,8 +164,8 @@ body{
     padding-top:0;
     padding-bottom:0.4em;
     padding-right: 0.4em;
-    width: 600px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
     border: 0px solid;
     margin-left: 30px;
     font-family: 'Oswald' ,sans-serif ;
@@ -134,12 +211,15 @@ body{
 	font-size: 20px;
 	font-family: 'Oswald' ,sans-serif ;
 	color: white;
-
 }
 
-.font {
-
+.medium-editor{
+	width: 600px;
+	height: 600px;
+	margin-left: 50px;
+	border: 0px solid;
 }
+
 
 @media screen and (min-width: 980px) {
 	#titlediv_note {

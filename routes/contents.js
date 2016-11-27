@@ -5,19 +5,21 @@ var Content = require("../models/content");
 router.post('/' , function(req , res){
     var writing = req.body.writing;
     var title = req.body.title;
-    var courseCode = req.body.course_code;
-    if(courseCode) {
-        courseCode.toUpperCase();
+    var coursecode = req.body.coursecode;
+    var delta = req.body.delta;
+    if(coursecode) {
+        coursecode = coursecode.toUpperCase();
     }
     var newContent = {
         writing: writing,
         title: title,
-        courseCode: courseCode
+        coursecode: coursecode,
+        delta: delta
     }
     Content.create(newContent, function(err, con) {
       console.log(con);
         if(con) {
-          res.send("http://localhost:3000/"+con._id);
+          res.send("http://localhost:3000/courses/"+con.coursecode+"/"+con._id);
         } else {
           res.send("");
         }
@@ -54,13 +56,15 @@ router.get('/:id' , function(req , res){
     })
 });
 
-router.get('/courses/:courseCode', function(req, res) {
-  var courseCode = req.params.courseCode;
-  if(courseCode) {
-    courseCode.toUpperCase();
+router.get('/courses/:coursecode', function(req, res) {
+  var coursecode = req.params.coursecode;
+  if(coursecode) {
+    coursecode = coursecode.toUpperCase();
   }
-  Content.find({"courseCode": courseCode}, function(err, contents) {
+  console.log(coursecode);
+  Content.find({"coursecode": coursecode}, function(err, contents) {
     if(contents) {
+      console.log(contents);
       res.send(contents);
     } else {
       res.send([]);

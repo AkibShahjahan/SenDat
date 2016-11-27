@@ -3,7 +3,8 @@ var mongoose = require("mongoose");
 var contentSchema = new mongoose.Schema({
     writing: String,
     title : String,
-    courseCode: String
+    coursecode: String,
+    delta: Object
 });
 
 var Content = mongoose.model("Content", contentSchema);

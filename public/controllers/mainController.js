@@ -7,30 +7,47 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           url: 'http://localhost:3000/contents/' + getId()
       })
       .then(function(response) {
-        $scope.title = response.data.title;
-          $scope.content = response.data.writing;
+          $scope.title = response.data.title;
+          quill.setContents(JSON.parse(response.data.delta));
+          $scope.coursecode = response.data.coursecode;
+            $http({
+              method: "GET",
+                  url: 'http://localhost:3000/contents/courses/' + $scope.coursecode.toUpperCase()
+              })
+              .then(function(response) {
+                $scope.notesList = response.data;
+              },
+              function(response) {
+                  alert("great failure");
+            });
       },
       function(response) {
-          alert("great failure");
+              alert(getId());
       });
   }
 
-  var getId = function() {
+  $scope.setNew = function(id) {
+    $http({
+      method: "GET",
+      url: "http://localhost:3000/contents/" + id
+    })
+    .then(function(response) {
+        $scope.title = response.data.title;
+        quill.setContents(JSON.parse(response.data.delta));
+        $scope.coursecode = response.data.coursecode;
+    }, 
+    function(response) {
+        alert("great failure");
+    });
+  }
 
+  var getId = function() {
     var url = ($window.location + '');
     var id = "";
-    var start = false;
     var len = url.length;
-    var slashCount = 0;
-    for(var i = 0; i<len; i++) {
-      if(start) {
-        id += url[i];
-      } else if(url[i] === "/"){
-        slashCount++;
-        if(slashCount === 3) {
-          start = true;
-        }
-      }
+    for(var i = len-1; i>=0; i--) {
+      if(url[i] === "/") { break; }
+      id = url[i] + id
     }
     return id;
   }
