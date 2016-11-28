@@ -34,32 +34,109 @@ body{
 	margin-left: 25%;
 }
 
-#searchinput{
-	 border: 0px solid;
-	 font-family: 'Dosis' ,sans-serif ;
-	 font-size: 17px;
-}
-
-.search input {
-  width: 250px;
-  height: 32px;
-  border: 0px solid;
-}
-
-.search input { text-indent: 32px;}
-
-.search .fa-search { 
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-#searchbar {
+/*#searchbar {
 	margin-right: 30%;
 	margin-left: 25%;
+	width: 500px;
+	height: 40px;
+	padding-left: 12px;
+}*/
+
+/*#_dropdown {
+	width: 300px;
+	height: 400px;
+	overflow-y: auto;
+	border:1px black solid;
+}*/
+
+/*#searchbar_value {
+	margin-right: 30%;
+	margin-left: 25%;
+	width: 500px;
 	padding-left: 12px;
 	border: 0px solid;
+	padding-bottom: 5px;
+	font-family: 'Dosis' ,sans-serif ;
+	font-size: 22px;
+	height: 35px;
+}*/
+
+ /*.searchbar {
+  margin-left: 26%;
+  position: relative;
+  display: inline-block;
+  border: 2px solid #000;
+  border-radius: 20px;
 }
+.searchbar #_value {
+  -webkit-appearance: none;
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 5px;
+  border: none;
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: none;
+  z-index: 1;
+  transition: all 0.5s ease-out 0.5s;
+  outline: none;
+}
+.searchbar #_value:focus {
+  width: 280px;
+  height: 30px;
+  margin-right: 20px;
+  transition: all 0.5s ease-out 0s;
+}
+.searchbar #_value:focus + span::before {
+  height: 14px;
+  margin: -22px 0 0 -15px;
+  transition: all 0.2s ease-out 0.5s;
+}
+.searchbar #_value:focus + span::after {
+  visibility: visible;
+  margin: -22px 0 0 -15px;
+  transition: all 0.2s ease-out 0.7s;
+}
+.searchbar span {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+.searchbar span::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  margin: -4px 0 0 0;
+  background-color: #000;
+  transform: rotate(-45deg);
+  transition: all 0.2s ease-out 0.2s;
+}
+.searchbar span::after {
+  content: '';
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 14px;
+  margin: -36px 0 0 5px;
+  background-color: #000;
+  transform: rotate(45deg);
+  transition: all 0.2s ease-out 0s;
+}*/
+
 
 #head-div {
 	width: 100%;
@@ -78,37 +155,38 @@ body{
 #title_bar{
 	width: 50%;
 	margin-bottom: 25px;
-	margin-top: 10px;
+	margin-top: 50px;
 	font-family: 'Oswald' ,sans-serif ;
 	margin-left: 25%;
 	padding-left: 12px;
+	height: auto;
 }
 
-#pubbut {
+#publishbutton{
+	position: absolute;
+}
+
+#pubbutdiv {
 	float: right;
-	margin-top: -5px;
-}
-
-.block {
-	display: inline-block;
+	margin-right: 25%;
+	margin-top: -122px;
+	width : 100px;
+	height: 50px;
 }
 
 #titlebox {
 	border: 0px solid;
 	font-size: 30px;
 	height: 35px;
-	display: inline-block;
 	background-color: transparent;
 	font-family: 'Oswald' ,sans-serif ;
 }
 
 #coursebox {
 	width: 100px;
-	margin-left: 300px;
 	border: 0px solid;
 	font-size: 20px;
 	height: 20px;
-	display: inline-block;
 	background-color: transparent;
 	font-family: 'Oswald' ,sans-serif ;
 }

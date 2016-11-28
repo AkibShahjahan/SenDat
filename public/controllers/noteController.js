@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria"]);
+var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria", "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
 
@@ -52,4 +52,11 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           alert("great failure");
     });
   }
+
+
+  $scope.selectedObject = function(x) {
+    // alert(JSON.stringify(x));
+    $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode;
+  }
+
 }]);

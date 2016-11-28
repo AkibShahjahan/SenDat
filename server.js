@@ -26,11 +26,6 @@ var MongoClient = mongodb.MongoClient;
 
 var PORT = 3000
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// var baseRoutes = require('./routes/base');
-// app.use('/', baseRoutes);
 var contentRoutes = require('./routes/contents');
 app.use('/contents', contentRoutes);
 var courseRoutes = require('./routes/courses');
@@ -38,33 +33,46 @@ app.use('/courses', courseRoutes);
 
 
 
-
-var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
-var morgan = require('morgan')('combined');
 var cookieparser = require('cookie-parser')();
 var bodyparser = require('body-parser').urlencoded({ extended: true });
 var expresssession = require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true });
+app.use(passport.initialize());
+app.use(passport.session()); 
+require('./config/passport')(passport); // pass passport for configuration
 
-var FACEBOOK_APP_ID = '194473814346087';
-var FACEBOOK_APP_SECRET = 'd4d2ca6c678e1578bd823611c612ee36';
 
-passport.use(new Strategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/login/facebook/return'
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
-  }));
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
+
+
+app.get('/profile', isLoggedIn, function(req, res){
+  	console.log(req.user)
+    res.render('profile.html');
 });
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+
+
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect : '/',
+        failureRedirect : '/login'
+    }));
+
+// route for logging out
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
 });
+
+var User = require("./models/user");
+
+app.get("/users", function(req, res) {
+	User.find({}, function(err, val) {
+		res.send(val);
+	})
+})
+
 
 app.get('/login' , function(req , res){
   // Going to index.html in public directory
@@ -74,24 +82,17 @@ app.get('/login' , function(req , res){
         }
         res.writeHead(200, {'Content-Type' : 'text/html'});
         res.end(html);
-    });
+   });
 });
-
-app.get('/login/facebook',
-  passport.authenticate('facebook'));
-
-app.get('/login/facebook/return', passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-
- });
-
-// app.get('/profile', require('connect-ensure-login').ensureLoggedIn(),
-//   function(req, res){
-//   	console.log("user profile still here")
-//     //res.render('profile', { user: req.user });
-//   });
+    // route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+        return next();
+    }
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
+}
 
 app.get('/' , function(req , res){
   // Going to index.html in public directory

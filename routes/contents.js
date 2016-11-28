@@ -72,6 +72,17 @@ router.get('/courses/:coursecode', function(req, res) {
   })
 })
 
+router.get('/find/search', function(req, res) {
+  // res.send({req.body.query});
+  console.log("ellow there m8")
+  //res.send({"results": [{"title": "bloody"}]});
+  Content.find({"coursecode": new RegExp(req.query.q, "i")}, function(err, contents) {
+    console.log(contents);
+    res.send({"results": contents});
+
+  })
+})
+
 
 
 module.exports = router;

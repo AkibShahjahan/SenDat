@@ -31,6 +31,9 @@
 		<!-- Theme included stylesheets -->
 		<link href="/css/quill.bubble.css" rel="stylesheet">
 
+		<link rel="stylesheet" href="/angucomplete-alt.css" />
+ 		<script src="/angucomplete-alt.js"></script>
+
 		<script src="/controllers/mainController.js"></script>
 
 	</head>
@@ -53,10 +56,25 @@
 
 			<div id="head-div">
 			<!-- <h1 id="heading"> Sendat</h1> -->
-				<div id="searchbar">
+				<!-- <div id="searchbar">
+		
+
 				  <span class="fa fa-search"></span>
-				  <input id="searchinput" placeholder="">
-				</div>
+				  <input id="searchinput" ng-model="searchNotes" placeholder="Search Here">
+				</div> -->
+
+				<angucomplete-alt 
+				  id="searchbar"
+	              placeholder="search here"
+	              pause="400"
+	              selected-object="selectedObject"		
+	              remote-url="http://localhost:3000/contents/find/search?q="
+	              remote-url-data-field="results"
+	              title-field="coursecode"
+	              description-field=""
+	              minlength = "2"
+	              input-class="form-control form-control-small"/>
+
 			</div>
 
 		<div id="title_bar">

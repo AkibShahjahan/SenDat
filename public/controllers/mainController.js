@@ -1,4 +1,5 @@
-var app = angular.module("app", ["ngMaterial"]);
+var app = angular.module("app", ["ngMaterial" , "angucomplete-alt"]);
+
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
   $scope.gettingClient = function() {
@@ -51,6 +52,12 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     }
     return id;
   }
+
+  $scope.selectedObject = function(x) {
+    // alert(JSON.stringify(x));
+    $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode;
+  }
+
 
 
 }]);

@@ -36,6 +36,11 @@
 		<link href="/css/quill.bubble.css" rel="stylesheet">
 
 		<script src="/controllers/noteController.js"></script>
+
+		<link rel="stylesheet" href="/angucomplete-alt.css" />
+ 		<script src="/angucomplete-alt.js"></script>
+
+		
 	</head>
 	<body ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
 
@@ -57,10 +62,24 @@
 
 	   		<div id="head-div">
 			<!-- <h1 id="heading"> Sendat</h1> -->
-				<div id="searchbar">
+				<!-- <div id="searchbar">
 				  <span class="fa fa-search"></span>
 				  <input id="searchinput" placeholder="">
-				</div>
+				</div> -->
+
+				<angucomplete-alt 
+				  id="searchbar"
+	              placeholder="search here"
+	              pause="400"
+	              selected-object="selectedObject"		
+	              remote-url="http://localhost:3000/contents/find/search?q="
+	              remote-url-data-field="results"
+	              title-field="coursecode"
+	              description-field=""
+	              minlength = "2"
+	              input-class="form-control form-control-small"/>
+
+
 			</div>
 
 		<div id="title_bar">

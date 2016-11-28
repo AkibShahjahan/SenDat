@@ -4,6 +4,7 @@
   "description": "To send stuff",
   "main": "server.js",
   "dependencies": {
+    "angucomplete-alt": "^2.5.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "medium.js": "^1.0.1",
