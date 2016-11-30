@@ -1,0 +1,35 @@
+html { 
+  background: url(/images/dc.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 1;
+}
+
+#login_modal{
+	width: 20%;
+	margin-left: 40%;
+	margin-top: 20%;
+	border : 3px black solid ;
+	border-radius: 20px;
+	height: 200px;
+	opacity: 1;
+}
+
+#login{
+	font-size: 40px;
+	color: black;
+	margin-left: 30px;
+	font-family: 'Oswald' ,sans-serif;
+}
+
+#signup {
+	font-size: 30px;
+	font-family: 'Oswald' ,sans-serif;
+	text-decoration: none;
+	color: black;
+	margin-left: 30px;
+}
+
+

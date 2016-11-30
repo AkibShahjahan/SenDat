@@ -11,7 +11,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "title": $scope.title,
                 "writing": text,
                 "coursecode" : $scope.coursecode,
-                "delta": delta 
+                "delta": delta
                });
     $http({
         url: 'http://localhost:3000/contents',
@@ -34,10 +34,5 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
       $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
     }
   }
-
-
-
-
-
 
 }]);

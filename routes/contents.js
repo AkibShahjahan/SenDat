@@ -1,8 +1,10 @@
 var express = require("express");
 var router = express.Router()
 var Content = require("../models/content");
+var User = require("../models/user");
+var Auth = require("../helpers/auth")
 
-router.post('/' , function(req , res){
+router.post('/', Auth.isAuthenticated, function(req , res){
     var writing = req.body.writing;
     var title = req.body.title;
     var coursecode = req.body.coursecode;
@@ -25,6 +27,13 @@ router.post('/' , function(req , res){
           res.send("");
         }
     });
+})
+
+// TODO: Secure it completely
+router.get("/users", function(req, res) {
+	User.find({}, function(err, val) {
+		res.send(val);
+	})
 })
 
 router.delete('/deleteall' , function(req , res){
@@ -62,10 +71,8 @@ router.get('/courses/:coursecode', function(req, res) {
   if(coursecode) {
     coursecode = coursecode.toUpperCase();
   }
-  console.log(coursecode);
   Content.find({"coursecode": coursecode}, function(err, contents) {
     if(contents) {
-      console.log(contents);
       res.send(contents);
     } else {
       res.send([]);
@@ -116,7 +123,5 @@ function uniqueCourseCode(arr, obj) {
   }
   return true;
 }
-
-
 
 module.exports = router;

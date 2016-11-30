@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Node.js OAuth</title>
+    <link rel="stylesheet" type="text/css" href="/css/login_styles.css">
   </head>
   <body>
 	  <script>
@@ -21,13 +22,11 @@
 	   }(document, 'script', 'facebook-jssdk'));
 	</script>
 
-    <a href="http://localhost:3000/auth/facebook" >Sign in with Facebook</a>
 
-    <div
-		  class="fb-like"
-		  data-share="true"
-		  data-width="450"
-		  data-show-faces="true">
+
+	<div id="login_modal">
+	    <h1 id="login">Login</h1>
+		<a id="signup" href="http://localhost:3000/auth/facebook" >Sign in with Facebook</a>	
 	</div>
     <br></br>
   </body>
