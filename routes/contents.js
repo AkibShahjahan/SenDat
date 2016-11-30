@@ -9,6 +9,7 @@ router.post('/' , function(req , res){
     var delta = req.body.delta;
     if(coursecode) {
         coursecode = coursecode.toUpperCase();
+        coursecode = coursecode.replace(/\s+/g, '');
     }
     var newContent = {
         writing: writing,
@@ -73,15 +74,48 @@ router.get('/courses/:coursecode', function(req, res) {
 })
 
 router.get('/find/search', function(req, res) {
-  // res.send({req.body.query});
-  console.log("ellow there m8")
-  //res.send({"results": [{"title": "bloody"}]});
   Content.find({"coursecode": new RegExp(req.query.q, "i")}, function(err, contents) {
-    console.log(contents);
-    res.send({"results": contents});
-
+    var newArr = [];
+    var index = 0;
+    if(contents) {
+      var len = contents.length;
+      for(var i = 0; i<len; i++) {
+        if(uniqueCourseCode(newArr, contents[i])) {
+          newArr[index++] = {
+            id: contents[i]._id,
+            title: contents[i].coursecode,
+            type: "coursecode"
+          }
+        }
+      }
+    }
+    Content.find({"title": new RegExp(req.query.q, "i")}, function(err, moreContents) {
+      if(moreContents) {
+        var len = moreContents.length;
+        for(var i = 0; i<len; i++) {
+          newArr[index++] = {
+            id: moreContents[i]._id,
+            title: moreContents[i].title,
+            coursecode: moreContents[i].coursecode,
+            type: "title"
+          }
+        }
+      }
+      console.log(newArr);
+      res.send({"results": newArr});
+    })
   })
 })
+
+function uniqueCourseCode(arr, obj) {
+  var len = arr.length;
+  for(var i = 0; i < len; i++) {
+    if (arr[i].title === obj.coursecode) {
+        return false;
+    }
+  }
+  return true;
+}
 
 
 

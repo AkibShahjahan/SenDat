@@ -54,8 +54,11 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   }
 
   $scope.selectedObject = function(x) {
-    // alert(JSON.stringify(x));
-    $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode;
+    if(x.originalObject.type === "coursecode") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+    } else if(x.originalObject.type === "title") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+    }
   }
 
 

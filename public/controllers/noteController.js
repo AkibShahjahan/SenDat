@@ -9,7 +9,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     var mydata = $.param({
                 "title": $scope.title,
                 "writing": text,
-                "coursecode": $scope.coursecode,
+                "coursecode": $scope.coursecode.toUpperCase().replace(/\s+/g, ''),
                 "delta": delta
                   });
     $http({
@@ -40,6 +40,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.gettingClient = function() {
     $scope.coursecode = getCourseCode();
+    $scope.coursecode_display = getCourseCode();
 
     $http({
       method: "GET",
@@ -55,8 +56,11 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
 
   $scope.selectedObject = function(x) {
-    // alert(JSON.stringify(x));
-    $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode;
+    if(x.originalObject.type === "coursecode") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+    } else if(x.originalObject.type === "title") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+    }
   }
 
 }]);

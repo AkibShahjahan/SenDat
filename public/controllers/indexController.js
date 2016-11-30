@@ -6,7 +6,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     var text = quill.getText();
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
     var coursecode = $scope.coursecode;
-    coursecode = coursecode.replace(/\s/g, '');
+    coursecode = coursecode.replace(/\s+/g,'');
     var mydata = $.param({
                 "title": $scope.title,
                 "writing": text,
@@ -28,8 +28,11 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   }
 
   $scope.selectedObject = function(x) {
-    // alert(JSON.stringify(x));
-    $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode;
+    if(x.originalObject.type === "coursecode") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+    } else if(x.originalObject.type === "title") {
+      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+    }
   }
 
 

@@ -8,7 +8,10 @@
 	<!--For the popup on the main screen-->
 	<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+
+
 
 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
@@ -17,113 +20,68 @@
 	<!-- Compiled and minified CSS -->
  	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
+	<link href="/css/quill.bubble.css" rel="stylesheet">
+
  	 <link rel="stylesheet" type="text/css" href="/css/style.css">
 
 	 <!-- Compiled and minified JavaScript -->
  	 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
-	<!-- Angular Material Dependencies -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+	 <!-- Angular Material Dependencies -->
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
-	<!-- Main Quill library -->
+ 	<!-- Quill libraries -->
+ 	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js" type="text/javascript"></script>
+ 	<script src="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js" type="text/javascript"></script>
 	<script src="/css/quill.min.js" type="text/javascript"></script>
+	<script src="/css/syntax.js" type="text/javascript"></script>
 
 	<!-- Theme included stylesheets -->
-	<link href="/css/quill.bubble.css" rel="stylesheet">
 
 	 <script src="/controllers/indexController.js"></script>
 
-	 <link rel="stylesheet" href="/angucomplete-alt.css" />
+	<link rel="stylesheet" href="/angucomplete-alt.css" />
     <script src="/angucomplete-alt.js"></script>
+
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+		
 
 </head>
 	<body ng-app = "app" ng-controller="MainController" ng-cloak>
 
-<!-- 	<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '194473814346087',
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script> -->
-
-	<!-- 	<div id="my_popup">
-			<h3 id="my_popup_text">Enter Course Code</h3>
-			<input type="text" id="coursetitle" ng-model="coursecode" placeholder="CS 246">
-			 Add an optional button to close the popup 
-	    <md-button id="gobutton" class="md-raised" ng-click="redirect()">Go</md-button>
-	    <div>
-	    	<md-button id="normalSendatbutton" class="md-raised my_popup_close" >Normal Sendat</md-button>
-	    </div>
-
-		</div> -->
-
-		<!-- <script type="text/javascript">
-			$(document).ready(function() {
-	  		$('#my_popup').popup({
-	  			autoopen: true,
-	  			transition: 'all 0.3s',
-	  			color: "#000",
-	  			opacity: 0.8,
-	  			blur: false,
-	  			scrolllock: true
-	  		});
-  		});
-		</script>
-
- -->    
-
-
-		<!-- <div id="head-div">
-			<form name="search">
-			    <label class="searchbar">
-			    <input id="_value" type="text" />
-					<angucomplete-alt
-		              pause="400"
-		              selected-object="selectedObject"		
-		              remote-url="http://localhost:3000/contents/find/search?q="
-		              remote-url-data-field="results"
-		              title-field="coursecode"
-		              description-field=""
-		              minlength = "2"
-		              input-class="form-control form-control-small"/>
-		              <span></span>
-		        </label>
-		    </form>
-		</div> -->
-
 		<ul id="slide-out" class="side-nav fixed yellow darken-2">
 
-		    <ul>
-			    <div ng-repeat="item in notesList">
-					<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
-					<li><div class="divider"></div></li>
-				</div>
-		    </ul>
+			<div id="head-div">
+				<angucomplete-alt
+				  id="searchbar"
+	              pause="400"
+	              placeholder= "Search here"
+	              selected-object="selectedObject"		
+	              remote-url="http://localhost:3000/contents/find/search?q="
+	              remote-url-data-field="results"
+	              title-field="title"
+	              description-field=""
+	              minlength = "2"
+	              input-class="form-control form-control-small"/>
+			</div> 
+
 	 	</ul>
 
 	 	<div id="container">
 			<div id="title_bar" class="parent">
 
 				<div class="child">
-					<input type="text"  id="titlebox" ng-model="title" placeholder="Title">
+					<h3 class="inline" id="title_label"></h3>
+					<input class="inline" type="text"  id="titlebox" ng-model="title" placeholder="Title">
 				</div>
 
 				<div class="child">
-					<input type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
+					<h3 class="inline" id="coursecode_label"></h3>
+					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
 				</div>
 			</div>
 
@@ -136,17 +94,57 @@
 		
 
 		<!-- Create the editor container -->
+
+		
 		<div id="centerdiv">
 			<div id="editor" class="container"> </div>
 		</div>
 		
 
 		<!-- Initialize Quill editor -->
-		<script>
+		<script  type="text/javascript">
 		 var quill = new Quill('#editor', {
+			 	modules: {
+     			syntax: true,              // Include syntax module
+     			toolbar: ['bold', 'italic', 'underline', 'link', 'image', { 'header': '3' }, { 'header': '2' }, { 'header': '1' }, 'code-block']
+  			},
 			  theme: 'bubble',
 			  placeholder : "Write Here"
 			});
+		</script>
+
+		<script type="text/javascript">
+
+		$('document').ready(function() {
+			$("#titlebox").keyup(function() {
+			    if(this.value) {
+				      $(this).css({
+				        "border-left" : "1px #DADADA solid"
+				      });
+				      $("#title_label").html("Title");
+			    } else if (! this.value){
+				      $(this).css({
+				        "border-left" : "none"
+				      });
+				      $("#title_label").html("");
+			    }
+			  });
+
+			$("#coursebox").keyup(function() {
+			    if(this.value) {
+			      $(this).css({
+			        "border-left" : "1px #DADADA solid"
+			      });
+			      $("#coursecode_label").html("Course");
+			    } else if (! this.value){
+			      $(this).css({
+			        "border-left" : "none"
+			      });
+			      $("#coursecode_label").html("");
+			    }
+			  });
+
+		});
 		</script>
 
 	</body>

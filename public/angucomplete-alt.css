@@ -1,9 +1,10 @@
 .angucomplete-holder {
     position: relative;
+    color: black;
 }
 
 .angucomplete-dropdown {
-    border-color: #ececec;
+    border-color: black;
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
@@ -20,7 +21,7 @@
 }
 
 .angucomplete-searching {
-    color: #acacac;
+    color: black;
 }
 
 .angucomplete-description {
