@@ -17,6 +17,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
               })
               .then(function(response) {
                 $scope.notesList = response.data;
+                $scope.length = 3;
               },
               function(response) {
                   alert("great failure");

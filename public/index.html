@@ -48,14 +48,48 @@
 
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css">
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+
+	<script type="text/javascript">
+		//var number2 = 1 + Math.floor(Math.random() * 3);
+			var color_value;
+			//var main_color_value;
+			var date = new Date();
+			var day = date.getDay();
+			console.log("index day = " + day);
+
+			//Random Amber
+
+			if(day === 0){
+				color_value = "orange lighten-4";
+			}
+			else if(day === 1){
+				color_value = "orange accent-1";
+			}
+			else if(day === 2){
+				color_value = "orange lighten-3";
+			}
+			else if(day === 3){
+				color_value = "orange lighten-2";
+			}
+			else if(day === 4){
+				color_value = "orange lighten-1";
+			}
+			else if(day === 5){
+				color_value = "orange accent-2";
+			}
+			else if(day === 6){
+				color_value = "orange";
+			}
+	</script>
 		
 
 </head>
 	<body ng-app = "app" ng-controller="MainController" ng-cloak>
 
-		<ul id="slide-out" class="side-nav fixed yellow darken-2">
+		<ul id="slide-out" class="side-nav fixed">
 
-			<div id="head-div">
+		<div id="totalsearch">
+			<div id="head-div" class="inline">
 				<angucomplete-alt
 				  id="searchbar"
 	              pause="400"
@@ -66,8 +100,15 @@
 	              title-field="title"
 	              description-field=""
 	              minlength = "2"
+	              background = "#FDD835"
 	              input-class="form-control form-control-small"/>
 			</div> 
+			<div id="searchicon" class="inline">
+				 <!-- <img src="https://maxcdn.icons8.com/iOS7/PNG/32/Very_Basic/search_filled-32.png" title="Search Filled" width="32"> -->
+				 <img id="search_img" src="/images/search5.svg" width="32px">
+			</div>
+		</div>
+
 
 	 	</ul>
 
@@ -86,7 +127,7 @@
 			</div>
 
 			<div id="pubbutdiv">
-		   		 <md-button  id="publishbutton" class="md-raised md-primary" ng-click="proceed()">Publish</md-button>
+		   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="proceed()">Publish</md-button>
 			</div>
 		</div>
 
@@ -106,7 +147,8 @@
 		 var quill = new Quill('#editor', {
 			 	modules: {
      			syntax: true,              // Include syntax module
-     			toolbar: ['bold', 'italic', 'underline', 'link', 'image', { 'header': '3' }, { 'header': '2' }, { 'header': '1' }, 'code-block']
+     			toolbar: ['bold', 'italic', 'underline', 'link', 'image',{ 'header': [1, 2, 3, 4, 5, 6, false] },
+     			'blockquote','code-block',{ 'color': [] }, { 'background': [] }, { 'font': [] },{ 'align': [] },'clean',{ 'list': 'ordered'}, { 'list': 'bullet' }]    
   			},
 			  theme: 'bubble',
 			  placeholder : "Write Here"
@@ -114,6 +156,8 @@
 		</script>
 
 		<script type="text/javascript">
+
+
 
 		$('document').ready(function() {
 			$("#titlebox").keyup(function() {
@@ -143,6 +187,13 @@
 			      $("#coursecode_label").html("");
 			    }
 			  });
+
+			$("#slide-out").addClass(color_value);
+			$("#searchicon").addClass(color_value);
+			$("#slide-out").hide().fadeIn('slow');
+			$("#container").hide().fadeIn('slow');
+
+
 
 		});
 		</script>

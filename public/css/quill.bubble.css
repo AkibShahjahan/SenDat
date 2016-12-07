@@ -6,7 +6,7 @@
  */
 .ql-container {
   box-sizing: border-box;
-  font-family: 'Oswald' ,sans-serif ;
+  font-family: 'Oxygen', sans-serif;
   font-size: 20px;
  /* this one height: 100%;*/
   margin: 0px;
@@ -30,6 +30,7 @@
   box-sizing: border-box;
   cursor: text;
   line-height: 1.42;
+  font-family: 'Oxygen', sans-serif;
 /*  this one tooo height: 100%; */
   outline: none;
   overflow-y: auto;

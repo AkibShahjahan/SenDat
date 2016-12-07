@@ -1,7 +1,10 @@
 <html>
   <head>
-    <title>Node.js OAuth</title>
+    <title>Login</title>
+     <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Ubuntu:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/login_styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
   </head>
   <body>
 	  <script>
@@ -22,12 +25,36 @@
 	   }(document, 'script', 'facebook-jssdk'));
 	</script>
 
-
-
-	<div id="login_modal">
+	<div id="container">
+		<div id="heading">
+			<h1 id="heading_text">Sendat , </h1>
+		</div>
+		<div id="para"> 
+			<p id="line1"> Your soon to be partner. You're gonna spend mose of your time on this from now on. 
+			<p id="line2"> Everybody will take notes on this. We will form a community and help each other and strive forward. </p>
+			<br>
+			<br>
+			<a id="signup" href="http://localhost:3000/auth/facebook" >Sign in with Facebook</a>
+		</div>
+	</div>
+	
+	<!-- <div id="login_modal">
 	    <h1 id="login">Login</h1>
 		<a id="signup" href="http://localhost:3000/auth/facebook" >Sign in with Facebook</a>	
-	</div>
+	</div> -->
     <br></br>
   </body>
 </html>
+
+<!-- <script type="text/javascript">
+	$('document').ready(function(){
+		$('#sign_up').hover(
+			function(){
+				$(this).css({
+					"border-bottom" : "1 px solid"
+				});
+			}
+		);
+	});
+	
+</script> -->
