@@ -1,8 +1,8 @@
 <html ng-app = "app">
 <head>
 	<title>Sendat Main</title>
-	<link rel="import" href="/partials/header.html" >
-	<script src="/controllers/mainController.js"></script>
+	<link rel="import" href="/public/partials/header.html" >
+	<script src="/public/controllers/mainController.js"></script>
 	<script type="text/javascript">
 		//var number2 = 1 + Math.floor(Math.random() * 3);
 			var color_value;
@@ -55,10 +55,10 @@
 		              minlength = "2"
 		              background = "#FDD835"
 		              input-class="form-control form-control-small"/>
-				</div> 
+				</div>
 				<div id="searchicon" class="inline">
 					 <!-- <img src="https://maxcdn.icons8.com/iOS7/PNG/32/Very_Basic/search_filled-32.png" title="Search Filled" width="32"> -->
-					 <img id="search_img" src="/images/search5.svg" width="32px">
+					 <img id="search_img" src="/public/images/search5.svg" width="32px">
 				</div>
 			</div>
 		    <li><div class="userView">
@@ -67,7 +67,7 @@
 
 		    <ul>
 			    <div ng-repeat="item in notesList">
-					<li><a  id="a_notes" href="" ng-click="setNew(item._id)" class="waves effect font"><i class="material-icons">assignment</i>{{item.title | limitTo:17}}</a></li> 
+					<li><a  id="a_notes" href="" ng-click="setNew(item._id)" class="waves effect font"><i class="material-icons">assignment</i>{{item.title | limitTo:17}}</a></li>
 
 					<li><div class="divider"></div></li>
 				</div>

@@ -7,8 +7,17 @@ var isAuthenticated = function(req, res, next) {
 
 }
 
+var isNotLoggedIn = function(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (!req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/');
+}
+
 var isLoggedIn = function(req, res, next) {
     // if user is authenticated in the session, carry on
+    console.log("isloggedin")
     if (req.isAuthenticated()){
         return next();
     }
@@ -18,5 +27,6 @@ var isLoggedIn = function(req, res, next) {
 
 module.exports = {
   isAuthenticated: isAuthenticated,
-  isLoggedIn: isLoggedIn
+  isLoggedIn: isLoggedIn,
+  isNotLoggedIn: isNotLoggedIn
 }

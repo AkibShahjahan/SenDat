@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<title>Sendat Index</title>
-	<link rel="import" href="/partials/header.html" >
-	<script src="/controllers/indexController.js"></script>
+	<link rel="import" href="/public/partials/header.html" >
+	<script src="/public/controllers/indexController.js"></script>
 	<script type="text/javascript">
 		//var number2 = 1 + Math.floor(Math.random() * 3);
 			var color_value;
@@ -36,6 +36,57 @@
 				color_value = "orange";
 			}
 	</script>
+	<script type="text/javascript">
+
+	$('document').ready(function() {
+	function statusChangeCallback(response) {
+		//alert('statusChangeCallback');
+		alert(JSON.stringify(response));
+		if (response.status === 'connected') {
+					 alert(JSON.stringify(response));
+		} else if (response.status === 'not_authorized') {
+							alert(JSON.stringify(response));
+		}
+
+	};
+
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '194473814346087',
+			xfbml      : true,
+			version    : 'v2.8'
+		});
+		FB.getLoginStatus(function(response) {
+				alert("dsfsafdsda");
+        statusChangeCallback(response);
+    });
+	};
+
+	(function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+ });
+
+	//  function testAPI() {
+	//   console.log('Welcome!  Fetching your information.... ');
+	//   FB.api('/me', function(response) {
+	//       console.log('Successful login for: ' + response.name);
+	//       console.log('Successful login for: ' + response.id);
+	//       console.log('Successful login for: ' + response.picture);
+	//       document.getElementById('status').innerHTML =
+	//           'Thanks for logging in, ' + response.name + '!';
+	//       document.getElementById('pic').innerHTML =
+	//           'Your user id is : ' + response.id + "<br />" +
+	//           "<img src='" + "https://graph.facebook.com/" + response.id + "/picture?type=large' alt='' />";
+	//       });
+	//   };
+</script>
+
 </head>
 	<body ng-app = "app" ng-controller="MainController" ng-cloak>
 
@@ -55,10 +106,10 @@
 	              minlength = "2"
 	              background = "#FDD835"
 	              input-class="form-control form-control-small"/>
-			</div> 
+			</div>
 			<div id="searchicon" class="inline">
 				 <!-- <img src="https://maxcdn.icons8.com/iOS7/PNG/32/Very_Basic/search_filled-32.png" title="Search Filled" width="32"> -->
-				 <img id="search_img" src="/images/search5.svg" width="32px">
+				 <img id="search_img" src="/public/images/search5.svg" width="32px">
 			</div>
 		</div>
 
@@ -100,7 +151,7 @@
 			 	modules: {
      			syntax: true,              // Include syntax module
      			toolbar: ['bold', 'italic', 'underline', 'link', 'image',{ 'header': [1, 2, 3, 4, 5, 6, false] },
-     			'blockquote','code-block',{ 'color': [] }, { 'background': [] }, { 'font': [] },{ 'align': [] },'clean',{ 'list': 'ordered'}, { 'list': 'bullet' }]    
+     			'blockquote','code-block',{ 'color': [] }, { 'background': [] }, { 'font': [] },{ 'align': [] },'clean',{ 'list': 'ordered'}, { 'list': 'bullet' }]
   			},
 			  theme: 'bubble',
 			  placeholder : "Write Here"

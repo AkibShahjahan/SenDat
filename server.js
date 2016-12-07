@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var fs = require('fs');
 var path = require('path');
 var passport = require('passport');
+// var User = require("/models/user");
 
 // OWN REQUIRES
 var contentRoutes = require('./routes/contents');
@@ -17,7 +18,9 @@ var Auth = require('./helpers/auth');
 app.use(bodyParser.json());
 //Allows you to access URL Encoded body stuff
 app.use(bodyParser.urlencoded());
-app.use(express.static('public'));
+
+// app.use(express.static('public'));
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 
 // MONGOOSE SETUP
@@ -49,9 +52,18 @@ app.use('/courses', courseRoutes);
 // TODO: later change it to /api/users, /api/courses, /api/contents
 
 // BASE ROUTES
-app.get('/' , function(req , res){
+app.get('/' , Auth.isLoggedIn, function(req , res){
   // Going to index.html in public directory
+  console.log(req.user)
+  fs.readFile('./views/index.html', function(err, html){
+       if (err){
+           throw err;
+       }
+       res.writeHead(200, {'Content-Type' : 'text/html'});
+       res.end(html);
+  });
 });
+
 app.get('/profile', Auth.isLoggedIn, function(req, res){
   	console.log(req.user)
     fs.readFile('./views/profile.html', function(err, html){
@@ -62,7 +74,7 @@ app.get('/profile', Auth.isLoggedIn, function(req, res){
          res.end(html);
     });
 });
-app.get('/login' , function(req , res){
+app.get('/login', Auth.isNotLoggedIn, function(req , res){
   // Going to index.html in public directory
    fs.readFile('./views/login.html', function(err, html){
         if (err){
@@ -77,13 +89,49 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+
+// app.get('/users/:id' , function(req , res){
+//     User.findById(req.params.id, function(err, content) {
+//         if(content) {
+//             res.json(content);
+//         } else {
+//             res.json({error: "No content found"});
+//         }
+//     })
+// });
+
 // FACEBOOK ROUTES
 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect : '/',
-        failureRedirect : '/login'
-}));
+// app.get('/auth/facebook/callback', function(req, res, next) {
+//     passport.authenticate('facebook', function(err, user, info) {
+//       console.log(user);
+//       res.send(user);
+//       return res.redirect('/');
+//     })});
+
+app.get('/auth/facebook/callback', function (req, res, next) {
+    passport.authenticate('facebook', function (err, user, info) {
+        if (err) {
+            return next(err);
+            // let the next route handler do its thing...
+            // or you can handle the error yourself within this
+            // callback.
+        }
+
+        // if the user returns as nothing (doesn't exist) then redirect
+        if (!user) {
+            // this takes the place of failureRedirect
+            return res.redirect('/');
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err); // again - on error, 'next' depending on your requirement.
+            }
+            // this takes the place of successRedirect
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
 
 // SERVER START
 app.listen(PORT, function(){
