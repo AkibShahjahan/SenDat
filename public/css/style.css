@@ -124,10 +124,16 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 	position: absolute;
 }
 
-#pubbutdiv {
+#kant{
+	padding: 5px;
+	margin-top: -140px;
+	width: 400px;
 	float: right;
-	margin-right: 25%;
-	margin-top: -122px;
+	margin-right: 100px;
+}
+
+#pubbutdiv {
+	float: left;
 	width : 100px;
 	height: 50px;
 }
@@ -283,6 +289,21 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 	color: white;
 }
 
+#name{
+	font-size: 20px;
+	padding: 10px;
+    font-family: 'Oxygen' ,sans-serif ;
+    color: black;
+}
+
+
+
+#name-div{
+	float: right;
+	padding: 10px;
+	margin-right: 20px;
+
+}
 
 @media screen and (min-width: 980px) {
 	#titlediv_note {

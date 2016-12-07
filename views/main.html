@@ -36,6 +36,56 @@
 				color_value = "orange";
 			}
 	</script>
+	<script type="text/javascript">
+
+	 var name;
+	$('document').ready(function() {
+	function statusChangeCallback(response) {
+		//alert('statusChangeCallback');
+		//alert(JSON.stringify(response));
+		if (response.status === 'connected') {
+					 //alert("calling testapi");
+					 testAPI();
+		} else if (response.status === 'not_authorized') {
+					//alert(JSON.stringify(response));
+		}
+
+	};
+
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '194473814346087',
+			xfbml      : true,
+			version    : 'v2.8'
+		});
+		FB.getLoginStatus(function(response) {
+				//alert("dsfsafdsda");
+                statusChangeCallback(response);
+    });
+	};
+
+	(function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+
+	function testAPI() {
+	    //alert('Welcome!  Fetching your information.... ');
+	    FB.api('/me', function(response) {
+	      name = response.name;
+	       console.log(name);
+	    });
+  	};
+
+ });
+
+
+    
+</script>
+
 </head>
 	<body ng-app = "app" ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
 
@@ -88,9 +138,17 @@
 				</div>
 			</div>
 
-			<div id="pubbutdiv">
-		   		 <md-button  id="publishbutton" class="md-raised md-primary" ng-click="edit()">Edit</md-button>
+			<div id="kant">
+				<div id="name-div" class="inline">
+					<a id="name" href="http://localhost:3000"></a>
+				</div>
+
+				<div id="pubbutdiv" class="inline">
+			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="proceed()">Publish</md-button>
+				</div>
+
 			</div>
+
 		</div>
 
 		<!-- Create the editor container -->
@@ -145,6 +203,7 @@
 
 			$("#slide-out").addClass(color_value);
 			$("#searchicon").addClass(color_value);
+			document.getElementById("name").innerHTML = name;
 			$("#slide-out").hide().fadeIn('slow');
 			$("#container").hide().fadeIn('slow');
 

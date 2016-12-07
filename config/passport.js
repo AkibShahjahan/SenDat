@@ -19,7 +19,7 @@ module.exports = function(passport) {
 		clientID        : configAuth.facebookAuth.clientID,
     clientSecret    : configAuth.facebookAuth.clientSecret,
     callbackURL     : configAuth.facebookAuth.callbackURL,
-    profileFields		: ['id', 'emails', 'name']
+    profileFields		: ['id', 'emails', 'name'],
 	},
 	function(token, refreshToken, profile, done) {
 		process.nextTick(function() {
@@ -30,7 +30,6 @@ module.exports = function(passport) {
                 if (err) {
                     return done(err);
                 }
-
                 // if the user is found, then log them in
                 if (user) {
                     return done(null, user); // user found, return that user
