@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router()
 var Content = require("../models/content");
 var User = require("../models/user");
+var UserNotes = require("../models/usernotes");
 var Auth = require("../helpers/auth")
 
 router.post('/', Auth.isAuthenticated, function(req , res){
@@ -19,13 +20,17 @@ router.post('/', Auth.isAuthenticated, function(req , res){
         coursecode: coursecode,
         delta: delta
     }
+
     Content.create(newContent, function(err, con) {
-      console.log(con);
-        if(con) {
-          res.send("http://localhost:3000/courses/"+con.coursecode+"/"+con._id);
-        } else {
-          res.send("");
-        }
+      if(con) {
+        res.send("http://localhost:3000/courses/"+con.coursecode+"/"+con._id);
+        UserNotes.findOne({"userId" : req.user.facebook.id}, function(err, usernotes){
+          usernotes.notes.push(con._id);
+          usernotes.save();
+        });
+      } else {
+        res.send("");
+      }
     });
 })
 
@@ -35,6 +40,25 @@ router.get("/users", function(req, res) {
 		res.send(val);
 	})
 })
+
+// TODO: Secure it completely
+router.get("/usernotes", function(req, res) {
+  UserNotes.find({}, function(err, val) {
+    res.send(val);
+  })
+})
+
+router.get("/usernotes/:userId", function(req, res) {
+  var userId = req.params.userId;
+  UserNotes.findOne({"userId": userId}).populate("notes").exec(function(err, usernotes){
+    if(usernotes){
+      res.json(usernotes);
+    } else  {
+      res.json({error: "No user notes found"});
+    }
+  });
+});
+
 
 router.delete('/deleteall' , function(req , res){
     Content.remove({} , function(err , res){

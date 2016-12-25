@@ -2,6 +2,7 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 var configAuth = require('./auth');
 var User = require('../models/user');
+var UserNotes = require('../models/usernotes');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
@@ -38,9 +39,9 @@ module.exports = function(passport) {
                     var newUser = new User();
 
                     // set all of the facebook information in our user model
-										newUser.facebook.firstName = profile.name.givenName;
-										newUser.facebook.lastName = profile.name.familyName;
-										newUser.facebook.email = profile.emails[0].value;
+					newUser.facebook.firstName = profile.name.givenName;
+					newUser.facebook.lastName = profile.name.familyName;
+					newUser.facebook.email = profile.emails[0].value;
                     newUser.facebook.id  = profile.id; // set the users facebook id
                     newUser.facebook.token = token; // we will save the token that facebook provides to the user
 
@@ -49,7 +50,13 @@ module.exports = function(passport) {
                         if (err)
                             throw err;
 
-                        // if successful, return the new user
+                         // if successful, return the new user
+                        var newUserNotes = new UserNotes();
+                        newUserNotes.userId = user._id;
+                        newUserNotes.notes = [];
+                        newUserNotes.save(function(err, userNotes) {
+                            console.log(userNotes);
+                        });
                         return done(null, newUser);
                     });
                 }
