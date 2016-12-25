@@ -16,6 +16,8 @@ router.get('/:courseid/:id' , function(req , res){
     });
 });
 
+
+
 router.get('/:courseid' , function(req , res){
 	console.log("called getting courses/:courseid");
     fs.readFile('./views/note.html', function(err, html){
