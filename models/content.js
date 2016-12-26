@@ -1,8 +1,6 @@
 var mongoose = require("mongoose");
 
 //public
-//annonymous
-//publicpersonal
 //personal
 //private
 var contentSchema = new mongoose.Schema({
