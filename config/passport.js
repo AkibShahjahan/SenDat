@@ -39,20 +39,20 @@ module.exports = function(passport) {
                     var newUser = new User();
 
                     // set all of the facebook information in our user model
-					newUser.facebook.firstName = profile.name.givenName;
-					newUser.facebook.lastName = profile.name.familyName;
-					newUser.facebook.email = profile.emails[0].value;
+										newUser.facebook.firstName = profile.name.givenName;
+										newUser.facebook.lastName = profile.name.familyName;
+										newUser.facebook.email = profile.emails[0].value;
                     newUser.facebook.id  = profile.id; // set the users facebook id
                     newUser.facebook.token = token; // we will save the token that facebook provides to the user
 
                     // save our user to the database
-                    newUser.save(function(err) {
+                    newUser.save(function(err, theNewUser) {
                         if (err)
                             throw err;
 
                          // if successful, return the new user
                         var newUserNotes = new UserNotes();
-                        newUserNotes.userId = user._id;
+                        newUserNotes.userFbId = theNewUser.facebook.id;
                         newUserNotes.notes = [];
                         newUserNotes.save(function(err, userNotes) {
                             console.log(userNotes);

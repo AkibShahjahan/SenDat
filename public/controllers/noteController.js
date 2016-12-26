@@ -10,7 +10,8 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "title": $scope.title,
                 "writing": text,
                 "coursecode": $scope.coursecode.toUpperCase().replace(/\s+/g, ''),
-                "delta": delta
+                "delta": delta,
+                "privacy_level": "PUBLICNAMED"   // TODO
                   });
     $http({
         url: 'http://localhost:3000/contents',

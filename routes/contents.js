@@ -10,23 +10,31 @@ router.post('/', Auth.isAuthenticated, function(req , res){
     var title = req.body.title;
     var coursecode = req.body.coursecode;
     var delta = req.body.delta;
+    var privacyLevel = req.body.privacy_level;
     if(coursecode) {
         coursecode = coursecode.toUpperCase();
         coursecode = coursecode.replace(/\s+/g, '');
     }
+    var date= new Date();
+		var currentTime = date.toUTCString();
     var newContent = {
         writing: writing,
         title: title,
         coursecode: coursecode,
-        delta: delta
+        delta: delta,
+        ownerFbId: req.user.facebook.id,
+        date: currentTime,
+        privacyLevel: privacyLevel
     }
 
     Content.create(newContent, function(err, con) {
       if(con) {
         res.send("http://localhost:3000/courses/"+con.coursecode+"/"+con._id);
-        UserNotes.findOne({"userId" : req.user.facebook.id}, function(err, usernotes){
-          usernotes.notes.push(con._id);
-          usernotes.save();
+        UserNotes.findOne({"userFbId" : req.user.facebook.id}, function(err, usernotes){
+          if(usernotes) {
+            usernotes.notes.push(con._id);
+            usernotes.save();
+          }
         });
       } else {
         res.send("");
