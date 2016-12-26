@@ -43,24 +43,27 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport); // pass passport for configuration
 
+
 // ROUTING
 // Routes have to be below passport.session()
 app.use('/contents', contentRoutes);
 app.use('/courses', courseRoutes);
 // TODO: later change it to /api/users, /api/courses, /api/contents
 
+
+
 // BASE ROUTES
-  app.get('/' , Auth.isLoggedIn, function(req , res){
-    // Going to index.html in public directory
-    console.log(req.user);
-    fs.readFile('./views/index.html', function(err, html){
-         if (err){
-             throw err;
-         }
-         res.writeHead(200, {'Content-Type' : 'text/html'});
-         res.end(html);
-    });
+app.get('/' , Auth.isLoggedIn, function(req , res){
+  // Going to index.html in public directory
+  console.log(req.user);
+  fs.readFile('./views/index.html', function(err, html){
+       if (err){
+           throw err;
+       }
+       res.writeHead(200, {'Content-Type' : 'text/html'});
+       res.end(html);
   });
+});
 
 app.get('/profile', Auth.isLoggedIn, function(req, res){
   	console.log(req.user)
@@ -94,6 +97,12 @@ app.get('/auth/facebook/callback',
         successRedirect : '/',
         failureRedirect : '/login'
 }));
+
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 // SERVER START
 app.listen(PORT, function(){

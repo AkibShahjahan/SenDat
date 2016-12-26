@@ -12,7 +12,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "writing": text,
                 "coursecode" : $scope.coursecode,
                 "delta": delta,
-                "privacy_level": "PUBLICNAMED"   // TODO
+                "privacy_level": "PUBLIC"   // TODO
                });
     $http({
         url: 'http://localhost:3000/contents',
