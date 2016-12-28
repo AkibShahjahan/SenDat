@@ -11,6 +11,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.title = response.data.title;
           quill.setContents(JSON.parse(response.data.delta));
           $scope.coursecode = response.data.coursecode;
+          $scope.switchtext = response.data.privacyLevel;
             $http({
               method: "GET",
                   url: 'http://localhost:3000/contents/courses/' + $scope.coursecode.toUpperCase()
@@ -27,6 +28,8 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
               alert(getId());
       });
   }
+
+
 
   $scope.setNew = function(id) {
     $http({

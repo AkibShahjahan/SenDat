@@ -10,7 +10,7 @@ router.post('/', Auth.isAuthenticated, function(req , res){
     var title = req.body.title;
     var coursecode = req.body.coursecode;
     var delta = req.body.delta;
-    var privacyLevel = req.body.privacy_level;
+    var privacyLevel = req.body.privacyLevel;
     if(coursecode) {
         coursecode = coursecode.toUpperCase();
         coursecode = coursecode.replace(/\s+/g, '');
@@ -56,9 +56,9 @@ router.get("/usernotes", function(req, res) {
   })
 })
 
-router.get("/usernotes/:userId", function(req, res) {
-  var userId = req.params.userId;
-  UserNotes.findOne({"userId": userId}).populate("notes").exec(function(err, usernotes){
+router.get("/usernotes/:userFbId", function(req, res) {
+  var userFbId = req.params.userFbId;
+  UserNotes.findOne({"userFbId": userFbId}).populate("notes").exec(function(err, usernotes){
     if(usernotes){
       res.json(usernotes);
     } else  {

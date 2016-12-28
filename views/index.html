@@ -11,9 +11,7 @@
 			var date = new Date();
 			var day = date.getDay();
 			console.log("index day = " + day);
-
 			//Random Amber
-
 			if(day === 0){
 				color_value = "orange lighten-4";
 			}
@@ -39,17 +37,17 @@
 	<script type="text/javascript">
 
 	 var name;
+	 var fbid;
 	$('document').ready(function() {
 	function statusChangeCallback(response) {
 		//alert('statusChangeCallback');
 		//alert(JSON.stringify(response));
 		if (response.status === 'connected') {
-					 //alert("calling testapi");
-					 testAPI();
+				//alert("calling testapi");
+				testAPI();
 		} else if (response.status === 'not_authorized') {
 					//alert(JSON.stringify(response));
 		}
-
 	};
 
 	window.fbAsyncInit = function() {
@@ -76,7 +74,7 @@
 	    //alert('Welcome!  Fetching your information.... ');
 	    FB.api('/me', function(response) {
 	      name = response.name;
-	       console.log(name);
+	      fbid = response.id;
 	    });
   	};
 
@@ -112,6 +110,13 @@
 			</div>
 		</div>
 
+		<ul>
+		    <div ng-repeat="item in notesList">
+				<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
+				<li><div class="divider"></div></li>
+			</div>
+	    </ul>
+
 	 	</ul>
 
 	 	<div id="container">
@@ -126,6 +131,13 @@
 					<h3 class="inline" id="coursecode_label"></h3>
 					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
 				</div>
+
+				<div class="child" id="inset" ng-cloak>
+					<md-switch ng-model="model"  ng-change="changeText(model)" class="md-warn">
+						{{ text }}
+					</md-switch>
+				</div>
+				
 			</div>
 			<div id="kant">
 				<div id="name-div" class="inline">
@@ -142,11 +154,7 @@
 		</div>
 
 
-
-
 		<!-- Create the editor container -->
-
-
 		<div id="centerdiv">
 			<div id="editor" class="container"> </div>
 		</div>
@@ -188,7 +196,6 @@
 			$("#searchicon").addClass(color_value);
 			 document.getElementById("name").innerHTML = name;
 			 //document.getElementById("name").innerHTML = "Jeeeeez";
-
 			$("#slide-out").hide().fadeIn('slow');
 			$("#container").hide().fadeIn('slow');
 

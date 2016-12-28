@@ -38,8 +38,6 @@
 </head>
 	<body ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
 
-
-
 		<ul id="slide-out" class="side-nav fixed">
 
 			<div id="totalsearch">
@@ -88,6 +86,12 @@
 				<div class="child">
 					<h3 class="inline" id="coursecode_label"></h3>
 					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
+				</div>
+
+				<div class="child" id="inset" ng-cloak>
+					<md-switch ng-model="model"  ng-change="changeText(model)" class="md-warn">
+						{{ text }}
+					</md-switch>
 				</div>
 			</div>
 

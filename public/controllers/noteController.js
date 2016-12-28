@@ -1,6 +1,15 @@
 var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria", "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
+  $scope.changeText = function(model){
+                          if(model){
+                             $scope.text = "Public";
+                          }else{
+                             $scope.text = "Private"
+                          }
+                      }
+
+  $scope.text = "Private";
 
   $scope.proceed = function() {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -11,7 +20,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "writing": text,
                 "coursecode": $scope.coursecode.toUpperCase().replace(/\s+/g, ''),
                 "delta": delta,
-                "privacy_level": "PUBLIC"   // TODO
+                "privacyLevel": $scope.text  // TODO
                   });
     $http({
         url: 'http://localhost:3000/contents',

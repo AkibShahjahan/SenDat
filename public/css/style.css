@@ -126,7 +126,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 
 #kant{
 	padding: 5px;
-	margin-top: -140px;
+	margin-top: -170px;
 	width: 400px;
 	float: right;
 	margin-right: 100px;
@@ -148,7 +148,13 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
   font-family: 'Ubuntu' ,sans-serif ;
 }
 
+#inset{
+	padding-left: 100px;
+	font-size :  18px;
+	font-family :'Ubuntu', sans-serif;
+	 color : #8F8F8F;
 
+}
 
 #coursecode_label{
   font-size :  15px;
@@ -295,8 +301,6 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
     font-family: 'Oxygen' ,sans-serif ;
     color: black;
 }
-
-
 
 #name-div{
 	float: right;

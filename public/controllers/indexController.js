@@ -1,6 +1,31 @@
 var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria", "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
+  $scope.changeText = function(model){
+                          if(model){
+                             $scope.text = "Public";
+                          }else{
+                             $scope.text = "Private";
+                          }
+                      }
+
+  $scope.text = "Private";
+
+  $scope.fbid = fbid;
+
+  $scope.gettingNotes = function() {
+    $http({
+      method: "GET",
+          url: 'http://localhost:3000/contents/usernotes/' + fbid
+      })
+      .then(function(response) {
+        $scope.notesList = response.data;
+      },
+      function(response) {
+          alert("great failure");
+    });
+  }
+
   $scope.proceed = function() {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     var text = quill.getText();
@@ -12,7 +37,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "writing": text,
                 "coursecode" : $scope.coursecode,
                 "delta": delta,
-                "privacy_level": "PUBLIC"   // TODO
+                "privacyLevel": $scope.text   // TODO
                });
     $http({
         url: 'http://localhost:3000/contents',

@@ -86,6 +86,12 @@
 					<h3 class="inline" id="coursecode_label"></h3>
 					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code" readonly>
 				</div>
+
+				<div class="child" id="inset" ng-cloak>
+					<md-switch id="switch" ng-model="model" ng-disabled="true" class="md-warn">
+						{{switchtext}}
+					</md-switch>
+				</div>
 			</div>
 
 			<div id="kant">
@@ -151,12 +157,25 @@
 			    }
 			  });
 
+			// var $scope = angular.element("body").scope();
+			// var privacy = $scope.switchtext;
+			// console.log(privacy);
+
+			// if(privacy === "Public"){
+			// 	console.log("Public");
+			// 	$("#switch").attr("aria-label" , "Disabled active switch");
+			// }else if ( privacy === "Private"){
+			// 	console.log("Private");
+			// 	$("#switch").attr("aria-label" , "Disabled switch");
+			// }
+
 			$("#slide-out").addClass(color_value);
 			$("#searchicon").addClass(color_value);
 			var myname = localStorage.getItem('name');
 			document.getElementById("name").innerHTML = myname;
 			$("#slide-out").hide().fadeIn('slow');
 			$("#container").hide().fadeIn('slow');
+
 
 		});
 		</script>
