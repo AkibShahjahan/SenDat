@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 
 var UserNotesSchema = new mongoose.Schema({
-    userFbId : String, 
+    userFbId : String,
     notes : [{
     	type : mongoose.Schema.Types.ObjectId,
-    	ref : 'Content'
+    	ref : 'Note'
     }]
 
 });

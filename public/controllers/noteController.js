@@ -23,7 +23,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "privacyLevel": $scope.text  // TODO
                   });
     $http({
-        url: 'http://localhost:3000/contents',
+        url: 'http://localhost:3000/api/note',
         method: "POST",
         data: mydata
     })
@@ -54,7 +54,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
     $http({
       method: "GET",
-          url: 'http://localhost:3000/contents/courses/' + $scope.coursecode.toUpperCase()
+          url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
       })
       .then(function(response) {
         $scope.notesList = response.data;

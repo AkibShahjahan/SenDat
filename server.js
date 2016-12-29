@@ -7,19 +7,25 @@ var path = require('path');
 var passport = require('passport');
 
 // OWN REQUIRES
-var contentRoutes = require('./routes/contents');
-var courseRoutes = require('./routes/courses');
 var Auth = require('./helpers/auth');
 
 // USE
-// BodyParser extracts the body portion of your request and makes its
-// accessible through req.body. so that it is easier to get the object.
 app.use(bodyParser.json());
-//Allows you to access URL Encoded body stuff
 app.use(bodyParser.urlencoded());
 app.use('/public', express.static(path.join(__dirname, 'public')))
-//app.use(express.static('public'));
 
+app.all('/*', function(req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // Set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
 
 // MONGOOSE SETUP
 var mongoose = require('mongoose');
@@ -27,12 +33,6 @@ mongoose.connect("mongodb://pushakib:pushakib@ds029197.mlab.com:29197/sendat");
 mongoose.connection.once("open", function() {
     console.log('Mongoose Connected!');
 })
-
-// No idea what this is for...
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
-
-var PORT = 3000
 
 // PASSPORT SETUP
 var cookieparser = require('cookie-parser')();
@@ -43,14 +43,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport); // pass passport for configuration
 
+// Authentication Required
+app.all('/api/*', Auth.isAuthenticated);
 
 // ROUTING
-// Routes have to be below passport.session()
-app.use('/contents', contentRoutes);
-app.use('/courses', courseRoutes);
-// TODO: later change it to /api/users, /api/courses, /api/contents
-
-
+app.use('/api', require('./routes'));
+app.use('/courses', require('./routes/courses'));
 
 // BASE ROUTES
 app.get('/' , Auth.isLoggedIn, function(req , res){
@@ -64,18 +62,7 @@ app.get('/' , Auth.isLoggedIn, function(req , res){
        res.end(html);
   });
 });
-
-app.get('/profile', Auth.isLoggedIn, function(req, res){
-  	console.log(req.user)
-    fs.readFile('./views/profile.html', function(err, html){
-         if (err){
-             throw err;
-         }
-         res.writeHead(200, {'Content-Type' : 'text/html'});
-         res.end(html);
-    });
-});
-app.get('/login' ,Auth.isNotLoggedIn,  function(req , res){
+app.get('/login', Auth.isNotLoggedIn,  function(req , res){
   // Going to index.html in public directory
    fs.readFile('./views/login.html', function(err, html){
         if (err){
@@ -98,14 +85,8 @@ app.get('/auth/facebook/callback',
         failureRedirect : '/login'
 }));
 
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// SERVER START
+// SERVER SETUP
+var PORT = 3000
 app.listen(PORT, function(){
-    //Callback triggered when server is successfully listening. Hurray!
     console.log("Server listening on: http://localhost:%s", PORT);
 });

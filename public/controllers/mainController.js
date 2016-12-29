@@ -5,7 +5,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.gettingClient = function() {
     $http({
       method: "GET",
-          url: 'http://localhost:3000/contents/' + getId()
+          url: 'http://localhost:3000/api/note/' + getId()
       })
       .then(function(response) {
           $scope.title = response.data.title;
@@ -14,7 +14,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.switchtext = response.data.privacyLevel;
             $http({
               method: "GET",
-                  url: 'http://localhost:3000/contents/courses/' + $scope.coursecode.toUpperCase()
+                  url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
               })
               .then(function(response) {
                 $scope.notesList = response.data;
@@ -34,13 +34,13 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.setNew = function(id) {
     $http({
       method: "GET",
-      url: "http://localhost:3000/contents/" + id
+      url: "http://localhost:3000/api/note/" + id
     })
     .then(function(response) {
         $scope.title = response.data.title;
         quill.setContents(JSON.parse(response.data.delta));
         $scope.coursecode = response.data.coursecode;
-    }, 
+    },
     function(response) {
         alert("great failure");
     });

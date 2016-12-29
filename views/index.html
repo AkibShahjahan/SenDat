@@ -81,11 +81,11 @@
  });
 
 
-    
+
 </script>
 
 </head>
-	<body ng-app = "app" ng-controller="MainController" ng-cloak>
+	<body ng-app = "app" ng-controller="MainController" ng-init="gettingUserNotes()" ng-cloak>
 
 		<ul id="slide-out" class="side-nav fixed">
 
@@ -96,7 +96,7 @@
 	              pause="400"
 	              placeholder= "Search here"
 	              selected-object="selectedObject"
-	              remote-url="http://localhost:3000/contents/find/search?q="
+	              remote-url="http://localhost:3000/api/notes/find/search?q="
 	              remote-url-data-field="results"
 	              title-field="title"
 	              description-field=""
@@ -129,15 +129,15 @@
 
 				<div class="child">
 					<h3 class="inline" id="coursecode_label"></h3>
-					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
+					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" ng-disabled="!privacyToggle" placeholder="Course Code">
 				</div>
 
 				<div class="child" id="inset" ng-cloak>
-					<md-switch ng-model="model"  ng-change="changeText(model)" class="md-warn">
-						{{ text }}
+					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" class="md-warn">
+						{{ privacy }}
 					</md-switch>
 				</div>
-				
+
 			</div>
 			<div id="kant">
 				<div id="name-div" class="inline">
@@ -150,7 +150,7 @@
 
 			</div>
 
-			
+
 		</div>
 
 
@@ -198,9 +198,6 @@
 			 //document.getElementById("name").innerHTML = "Jeeeeez";
 			$("#slide-out").hide().fadeIn('slow');
 			$("#container").hide().fadeIn('slow');
-
-
-
 		});
 
 		 var quill = new Quill('#editor', {

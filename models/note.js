@@ -1,9 +1,6 @@
 var mongoose = require("mongoose");
 
-//public
-//personal
-//private
-var contentSchema = new mongoose.Schema({
+var noteSchema = new mongoose.Schema({
     writing: String,
     title : String,
     coursecode: String,
@@ -11,11 +8,10 @@ var contentSchema = new mongoose.Schema({
     ownerFbId: String,
     date : {
       type : Date
-      //default: Date.now
     },
     privacyLevel: String
 });
 
-var Content = mongoose.model("Content", contentSchema);
+var Note = mongoose.model("Note", noteSchema);
 
-module.exports = Content;
+module.exports = Note;

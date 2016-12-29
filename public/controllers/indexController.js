@@ -1,25 +1,28 @@
 var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria", "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
-  $scope.changeText = function(model){
-                          if(model){
-                             $scope.text = "Public";
-                          }else{
-                             $scope.text = "Private";
-                          }
-                      }
+  $scope.privacyAction = function(privacy){
+    if(privacy){
+       $scope.privacy = "PUBLIC";
+    }else{
+       $scope.privacy = "PRIVATE";
+       $scope.coursecode = "";
+    }
+  }
 
-  $scope.text = "Private";
+  $scope.privacy = "PUBLIC";
+  $scope.privacyToggle = true;
 
   $scope.fbid = fbid;
 
-  $scope.gettingNotes = function() {
+  $scope.gettingUserNotes = function() {
     $http({
       method: "GET",
-          url: 'http://localhost:3000/contents/usernotes/' + fbid
+          url: 'http://localhost:3000/api/usernotes/' + $scope.fbid
       })
       .then(function(response) {
-        $scope.notesList = response.data;
+        alert(JSON.stringify(response.data));
+        $scope.notesList = response.data.notes;
       },
       function(response) {
           alert("great failure");
@@ -37,10 +40,10 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "writing": text,
                 "coursecode" : $scope.coursecode,
                 "delta": delta,
-                "privacyLevel": $scope.text   // TODO
+                "privacyLevel": $scope.privacy
                });
     $http({
-        url: 'http://localhost:3000/contents',
+        url: 'http://localhost:3000/api/note',
         method: "POST",
         data: mydata
     })

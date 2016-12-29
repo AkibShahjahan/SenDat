@@ -3,7 +3,7 @@ var app = express();
 var router = express.Router()
 var fs = require('fs');
 
-var Content = require("../models/content");
+var Content = require("../models/note");
 
 router.get('/:courseid/:id' , function(req , res){
 	console.log("called getting courses/:courseid/:id");

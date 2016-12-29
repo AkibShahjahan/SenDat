@@ -1,7 +1,6 @@
 var isAuthenticated = function(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
-      console.log("I am a middleware")
         return next();
     }
     res.send(401,{ success : false, message : 'not authenticated' });
@@ -10,7 +9,6 @@ var isAuthenticated = function(req, res, next) {
 
 var isNotLoggedIn = function(req, res, next) {
     if (!req.isAuthenticated()){
-      console.log("I am a middleware")
         return next();
     }
     res.redirect('/');
@@ -18,7 +16,6 @@ var isNotLoggedIn = function(req, res, next) {
 
 var isLoggedIn = function(req, res, next) {
     if (req.isAuthenticated()){
-      console.log("I am a middleware")
         return next();
     }
     // if they aren't redirect them to the home page
