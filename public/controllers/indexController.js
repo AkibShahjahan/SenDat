@@ -13,15 +13,12 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.privacy = "PUBLIC";
   $scope.privacyToggle = true;
 
-  $scope.fbid = fbid;
-
-  $scope.gettingUserNotes = function() {
+  $scope.gettingUserNotes = function(fbId) {
     $http({
       method: "GET",
-          url: 'http://localhost:3000/api/usernotes/' + $scope.fbid
+          url: 'http://localhost:3000/api/usernotes/' + fbId
       })
       .then(function(response) {
-        alert(JSON.stringify(response.data));
         $scope.notesList = response.data.notes;
       },
       function(response) {
@@ -49,7 +46,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     })
     .then(function(response) {
         alert(response.data);
-        $window.location.href = response.data;
+        $window.location.href = 'http://localhost:3000/courses/' + $scope.coursecode + "/" + response.data;
     },
     function(response) {
         alert("great failure");

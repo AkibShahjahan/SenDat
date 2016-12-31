@@ -28,7 +28,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
         data: mydata
     })
     .then(function(response) {
-        $window.location.href = response.data;
+        $window.location.href = 'http://localhost:3000/courses/' + $scope.coursecode + "/" + response.data;
     },
     function(response) {
         alert("great failure");

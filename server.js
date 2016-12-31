@@ -44,7 +44,7 @@ app.use(passport.session());
 require('./config/passport')(passport); // pass passport for configuration
 
 // Authentication Required
-app.all('/api/*', Auth.isAuthenticated);
+// app.all('/api/*', Auth.isAuthenticated); // TODO: UNCOMMENT
 
 // ROUTING
 app.use('/api', require('./routes'));

@@ -1,6 +1,7 @@
 var Note = require("../models/note.js");
 var User = require("../models/user.js")
 var UserNotes = require("../models/usernotes.js");
+var NoteRecord = require("../models/noteRecord.js");
 var Search = require("../helpers/search.js");
 
 var notes = {
@@ -15,9 +16,18 @@ var notes = {
   },
   getOne: function(req, res) {
     var id = req.params.id;
-    Note.findById(id, function(err, note) {
-      if(note) {
-        res.send(note);
+    Note.findById(id, function(err, foundNote) {
+      if(foundNote) {
+        var noteId = foundNote._id;
+        res.send(foundNote);
+        NoteRecord.findOne({"noteId": noteId}, function(err, foundNoteRecord) {
+          if(foundNoteRecord && foundNoteRecord.views.indexOf(noteId) == -1) {
+            foundNoteRecord.views.push(noteId);
+            foundNoteRecord.save();
+            foundNote.rankScore++;
+            foundNote.save();
+          }
+        })
       } else {
         res.send({error: "Something went wrong"});
       }
@@ -28,12 +38,13 @@ var notes = {
     if(coursecode) {
       coursecode = coursecode.toUpperCase();
     }
-    Note.find({"coursecode": coursecode}, function(err, notes) {
-      if(notes) {
-        res.send(notes);
-      } else {
-        res.send([]);
-      }
+    Note.find({"coursecode": coursecode})
+        .sort({"rankScore": -1}).exec(function(err, notes) {
+          if(notes) {
+            res.send(notes);
+          } else {
+            res.send([]);
+          }
     })
   },
   create: function(req, res) {
@@ -42,6 +53,7 @@ var notes = {
     var coursecode = req.body.coursecode;
     var delta = req.body.delta;
     var privacyLevel = req.body.privacyLevel;
+    var rankScore = 0;
     if(coursecode) {
         coursecode = coursecode.toUpperCase();
         coursecode = coursecode.replace(/\s+/g, '');
@@ -55,30 +67,40 @@ var notes = {
         delta: delta,
         ownerFbId: req.user.facebook.id,
         date: currentTime,
-        privacyLevel: privacyLevel
+        privacyLevel: privacyLevel,
+        rankScore: rankScore
     }
     Note.create(newNote, function(err, con) {
       if(con) {
-        res.send("http://localhost:3000/courses/"+con.coursecode+"/"+con._id);
+        res.send(con._id);
         UserNotes.findOne({"userFbId" : req.user.facebook.id}, function(err, usernotes){
           if(usernotes) {
             usernotes.notes.push(con._id);
             usernotes.save();
           }
         });
+        var newNoteRecord = {
+          noteId: con._id,
+          views: []
+        }
+        NoteRecord.create(newNoteRecord);
       } else {
         res.send({error: "Something went wrong"});
       }
     });
   },
   deleteAll: function(req, res) {
-    Note.remove({} , function(err , res){
-        if(err){
-            throw err;
-        } else {
-            res.send('success');
-        }
-    });
+    // Have to delete one by one for remove middleware to get called
+    Note.find({}, function(err, notes){
+    if(err) {
+      console.log(err);
+    } else {
+      notes.forEach(function(note){
+        note.remove();
+      })
+      res.send("success");
+    }
+  })
   },
   search: function(req, res) {
     Note.find({"coursecode": new RegExp(req.query.q, "i")}, function(err, notes) {
@@ -96,7 +118,8 @@ var notes = {
           }
         }
       }
-      Note.find({"title": new RegExp(req.query.q, "i")}, function(err, moreNotes) {
+      Note.find({"title": new RegExp(req.query.q, "i")})
+          .sort({"rankScore": -1}).exec(function(err, moreNotes) {
         if(moreNotes) {
           var len = moreNotes.length;
           for(var i = 0; i<len; i++) {

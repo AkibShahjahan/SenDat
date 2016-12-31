@@ -35,9 +35,6 @@
 			}
 	</script>
 	<script type="text/javascript">
-
-	 var name;
-	 var fbid;
 	$('document').ready(function() {
 	function statusChangeCallback(response) {
 		//alert('statusChangeCallback');
@@ -73,19 +70,20 @@
 	function testAPI() {
 	    //alert('Welcome!  Fetching your information.... ');
 	    FB.api('/me', function(response) {
-	      name = response.name;
-	      fbid = response.id;
+				localStorage.setItem("name", response.name);
+				localStorage.setItem("fbId", response.id);
+				angular.element('#controller').scope().gettingUserNotes(response.id);
 	    });
   	};
 
- });
+ 	});
 
 
 
 </script>
 
 </head>
-	<body ng-app = "app" ng-controller="MainController" ng-init="gettingUserNotes()" ng-cloak>
+	<body ng-app = "app" id="controller" ng-controller="MainController" ng-cloak>
 
 		<ul id="slide-out" class="side-nav fixed">
 
@@ -194,7 +192,7 @@
 
 			$("#slide-out").addClass(color_value);
 			$("#searchicon").addClass(color_value);
-			 document.getElementById("name").innerHTML = name;
+			 document.getElementById("name").innerHTML = localStorage.getItem("name");
 			 //document.getElementById("name").innerHTML = "Jeeeeez";
 			$("#slide-out").hide().fadeIn('slow');
 			$("#container").hide().fadeIn('slow');
