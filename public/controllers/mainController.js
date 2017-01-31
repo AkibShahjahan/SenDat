@@ -5,7 +5,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.gettingClient = function() {
     $http({
       method: "GET",
-          url: 'http://localhost:3000/api/note/' + getId()
+          url: 'http://www.senndat.com/api/note/' + getId()
       })
       .then(function(response) {
           $scope.title = response.data.title;
@@ -14,7 +14,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.switchtext = response.data.privacyLevel;
             $http({
               method: "GET",
-                  url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
+                  url: 'http://www.senndat.com/api/notes/course/' + $scope.coursecode.toUpperCase()
               })
               .then(function(response) {
                 $scope.notesList = response.data;
@@ -34,7 +34,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.setNew = function(id) {
     $http({
       method: "GET",
-      url: "http://localhost:3000/api/note/" + id
+      url: "http://www.senndat.com/api/note/" + id
     })
     .then(function(response) {
         $scope.title = response.data.title;
@@ -59,9 +59,9 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.selectedObject = function(x) {
     if(x.originalObject.type === "coursecode") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+      $window.location.href = 'http://www.senndat.com/courses/' + x.originalObject.title;
     } else if(x.originalObject.type === "title") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+      $window.location.href = 'http://www.senndat.com/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
     }
   }
 
