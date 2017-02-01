@@ -65,6 +65,4 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     }
   }
 
-
-
 }]);
