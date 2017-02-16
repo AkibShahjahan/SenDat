@@ -47,7 +47,7 @@
 	              pause="400"
 	              placeholder= "Search here"
 	              selected-object="selectedObject"
-	              remote-url="http://www.senndat.com/api/notes/find/search?q="
+	              remote-url="http://localhost:3000/api/notes/find/search?q="
 	              remote-url-data-field="results"
 	              title-field="title"
 	              description-field=""
@@ -62,12 +62,12 @@
 		</div>
 
 		    <li><div class="userView">
-		    <a class="active" href="http://www.senndat.com/courses/{{coursecode}}">{{coursecode_display}}</a>
+		    <a class="active" href="http://localhost:3000/courses/{{coursecode}}">{{coursecode_display}}</a>
 		    </div></li>
 
 		    <ul>
 			    <div ng-repeat="item in notesList">
-					<li><a class="waves effect font" href="http://www.senndat.com/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
+					<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
 					<li><div class="divider"></div></li>
 				</div>
 		    </ul>
@@ -97,7 +97,7 @@
 
 			<div id="kant">
 				<div id="name-div" class="inline">
-					<a id="name" href="http://www.senndat.com"></a>
+					<a id="name" href="http://localhost:3000"></a>
 				</div>
 
 				<div id="pubbutdiv" class="inline">
