@@ -4,23 +4,7 @@
      <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Ubuntu:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/public/css/login_styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <script>
-      window.fbAsyncInit = function() {
-          FB.init({
-         		appId      : '194473814346087',
-         		xfbml      : true,
-         		version    : 'v2.8'
-         	});
-      };
-      (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/all.js";
-       fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
+    <script src="/public/js/login.js"></script>
   </head>
   <body>
 	<div id="container" ng-cloak>
@@ -43,16 +27,3 @@
     <br></br>
   </body>
 </html>
-
-<!-- <script type="text/javascript">
-	$('document').ready(function(){
-		$('#sign_up').hover(
-			function(){
-				$(this).css({
-					"border-bottom" : "1 px solid"
-				});
-			}
-		);
-	});
-
-</script> -->

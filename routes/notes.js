@@ -38,7 +38,11 @@ var notes = {
     if(coursecode) {
       coursecode = coursecode.toUpperCase();
     }
-    Note.find({"coursecode": coursecode})
+    var searchQuery = {
+      "coursecode" : coursecode,
+      "privacyLevel" : "PUBLIC"
+    }
+    Note.find(searchQuery)
         .sort({"rankScore": -1}).exec(function(err, notes) {
           if(notes) {
             res.send(notes);
@@ -74,6 +78,7 @@ var notes = {
       if(con) {
         res.send(con._id);
         UserNotes.findOne({"userFbId" : req.user.facebook.id}, function(err, usernotes){
+          console.log(usernotes);
           if(usernotes) {
             usernotes.notes.push(con._id);
             usernotes.save();
@@ -89,6 +94,30 @@ var notes = {
       }
     });
   },
+
+  updateNote: function(req,res){
+    var id = req.params.id;
+    var delta = req.body.delta;
+    var writing = req.body.writing;
+    var privacyLevel = req.body.privacyLevel;
+    var title = req.body.title;
+    console.log(req.body);
+    Note.findOneAndUpdate({ _id : id } , { $set : { "delta": delta , "writing": writing, "title" : title , "privacyLevel" : privacyLevel}}, {new: true}, function(err,doc){
+      if(err){
+        console.log("Something wrong when updating data!");
+       }
+      console.log(doc);
+      res.send(doc);
+    });
+  },
+
+  deleteNote: function(req,res){
+    var id = req.params.id;
+    Note.findById(id,function(err,notefound){
+      notefound.remove();
+    });
+  },
+
   deleteAll: function(req, res) {
     // Have to delete one by one for remove middleware to get called
     Note.find({}, function(err, notes){

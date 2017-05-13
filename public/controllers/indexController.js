@@ -32,10 +32,13 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
     var coursecode = $scope.coursecode;
     coursecode = coursecode.replace(/\s+/g,'');
+    if (coursecode == ""){
+      coursecode = "private";
+    }
     var mydata = $.param({
                 "title": $scope.title,
                 "writing": text,
-                "coursecode" : $scope.coursecode,
+                "coursecode" : coursecode,
                 "delta": delta,
                 "privacyLevel": $scope.privacy
                });
@@ -45,8 +48,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
         data: mydata
     })
     .then(function(response) {
-        alert(response.data);
-        $window.location.href = 'http://localhost:3000/courses/' + $scope.coursecode + "/" + response.data;
+        $window.location.href = 'http://localhost:3000/courses/' + coursecode + "/" + response.data;
     },
     function(response) {
         alert("great failure");

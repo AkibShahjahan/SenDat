@@ -29,6 +29,7 @@ app.all('/*', function(req, res, next) {
 
 // MONGOOSE SETUP
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://pushakib:pushakib@ds029197.mlab.com:29197/sendat");
 mongoose.connection.once("open", function() {
     console.log('Mongoose Connected!');

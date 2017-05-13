@@ -6,7 +6,7 @@ var fs = require('fs');
 var Content = require("../models/note");
 
 router.get('/:courseid/:id' , function(req , res){
-	console.log("called getting courses/:courseid/:id");
+	//console.log("called getting courses/:courseid/:id");
     fs.readFile('./views/main.html', function(err, html){
         if (err){
             throw err;
@@ -17,7 +17,6 @@ router.get('/:courseid/:id' , function(req , res){
 });
 
 router.get('/:courseid' , function(req , res){
-	console.log("called getting courses/:courseid");
     fs.readFile('./views/note.html', function(err, html){
         if (err){
             throw err;

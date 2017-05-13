@@ -36,6 +36,7 @@ body{
 	margin-left: 30px;
 	margin-right: 49px;
 	padding-right: 0px;
+	margin-bottom: 20px;
 	border: 3px black solid;
 	height: 46px;
 }
@@ -177,6 +178,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 	padding-bottom: 10px; 
 	padding-left : 10px;
 	word-wrap: break-word;
+	color: black !important;
 	background-color: transparent;
 	font-family: 'Ubuntu' ,sans-serif ;
 }

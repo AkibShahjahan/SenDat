@@ -3,39 +3,7 @@
 	<title>Sendat Main</title>
 	<link rel="import" href="/public/partials/header.html" >
 	<script src="/public/controllers/mainController.js"></script>
-	<script type="text/javascript">
-		//var number2 = 1 + Math.floor(Math.random() * 3);
-			var color_value;
-			//var main_color_value;
-			var date = new Date();
-			var day = date.getDay();
-
-			console.log("main day = " + day);
-
-			//Random Amber
-
-			if(day === 0){
-				color_value = "orange lighten-4";
-			}
-			else if(day === 1){
-				color_value = "orange accent-1";
-			}
-			else if(day === 2){
-				color_value = "orange lighten-3";
-			}
-			else if(day === 3){
-				color_value = "orange lighten-2";
-			}
-			else if(day === 4){
-				color_value = "orange lighten-1";
-			}
-			else if(day === 5){
-				color_value = "orange accent-2";
-			}
-			else if(day === 6){
-				color_value = "orange";
-			}
-	</script>
+	<script src="/public/js/main.js"></script>
 </head>
 	<body ng-app = "app" ng-controller="MainController" ng-init="gettingClient()" ng-cloak>
 
@@ -79,7 +47,7 @@
 
 				<div class="child">
 					<h3 class="inline" id="title_label"></h3>
-					<input class="inline" type="text"  id="titlebox" ng-model="title" placeholder="Title" readonly>
+					<input class="inline" type="text"  id="titlebox" ng-model="title" placeholder="Title" ng-readonly="titlereadonly">
 				</div>
 
 				<div class="child">
@@ -88,8 +56,8 @@
 				</div>
 
 				<div class="child" id="inset" ng-cloak>
-					<md-switch id="switch" ng-model="model" ng-disabled="true" class="md-warn">
-						{{switchtext}}
+					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" ng-disabled="switchdisabled" class="md-warn">
+						{{privacy}}
 					</md-switch>
 				</div>
 			</div>
@@ -100,7 +68,7 @@
 				</div>
 
 				<div id="pubbutdiv" class="inline">
-			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="proceed()">Publish</md-button>
+			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="togglefunction()">{{buttontitle}}</md-button>
 				</div>
 
 			</div>
@@ -112,73 +80,18 @@
 			<div id="editor" class="container"> </div>
 		</div>
 
-
-		<!-- Initialize Quill editor -->
-		<script  type="text/javascript">
-		 var quill = new Quill('#editor', {
+		<script type="text/javascript">
+			var quill = new Quill('#editor', {
 			 	modules: {
-     			syntax: true,              // Include syntax module
-     			toolbar: ['bold', 'italic', 'underline', 'link', { 'header': '3' }, { 'header': '2' }, { 'header': '1' }, 'code-block']
-  			},
+					syntax: true,              // Include syntax module
+					toolbar: ['bold', 'italic', 'underline', 'link', 'image',{ 'header': [1, 2, 3, 4, 5, 6, false] },
+					'blockquote','code-block',{ 'color': [] }, { 'background': [] }, { 'font': [] },{ 'align': [] },'clean',{ 'list': 'ordered'}, { 'list': 'bullet' }]
+				},
 			  theme: 'bubble',
-			  placeholder : "Write Here",
-			  readOnly : true
+			  placeholder : "Write Here"
 			});
 		</script>
 
-		<script type="text/javascript">
-
-		$('document').ready(function() {
-			$("#titlebox").keyup(function() {
-			    if(this.value) {
-				      $(this).css({
-				        "border-left" : "1px #DADADA solid"
-				      });
-				      $("#title_label").html("Title");
-			    } else if (! this.value){
-				      $(this).css({
-				        "border-left" : "none"
-				      });
-				      $("#title_label").html("");
-			    }
-			  });
-
-			$("#coursebox").keyup(function() {
-			    if(this.value) {
-			      $(this).css({
-			        "border-left" : "1px #DADADA solid"
-			      });
-			      $("#coursecode_label").html("Course");
-			    } else if (! this.value){
-			      $(this).css({
-			        "border-left" : "none"
-			      });
-			      $("#coursecode_label").html("");
-			    }
-			  });
-
-			// var $scope = angular.element("body").scope();
-			// var privacy = $scope.switchtext;
-			// console.log(privacy);
-
-			// if(privacy === "Public"){
-			// 	console.log("Public");
-			// 	$("#switch").attr("aria-label" , "Disabled active switch");
-			// }else if ( privacy === "Private"){
-			// 	console.log("Private");
-			// 	$("#switch").attr("aria-label" , "Disabled switch");
-			// }
-
-			$("#slide-out").addClass(color_value);
-			$("#searchicon").addClass(color_value);
-			var myname = localStorage.getItem('name');
-			document.getElementById("name").innerHTML = myname;
-			$("#slide-out").hide().fadeIn('slow');
-			$("#container").hide().fadeIn('slow');
-
-
-		});
-		</script>
 
 	</body>
 </html>

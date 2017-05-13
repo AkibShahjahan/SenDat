@@ -11,10 +11,12 @@ router.get('user/fb/:id', users.getOneByFb)
 
 router.get('/notes', notes.getAll);
 router.get('/note/:id', notes.getOne);
-router.get('/notes/course/:coursecode', notes.getByCourse)
+router.get('/notes/course/:coursecode', notes.getByCourse);
 router.post('/note', notes.create);
+router.post('/note/update/:id', notes.updateNote);
 router.get('/notes/find/search', notes.search);
-router.delete('/notes/deleteall', notes.deleteAll); // TODO: Dangerous. Delete this later.
+router.get('/notes/deleteall', notes.deleteAll); // TODO: Dangerous. Delete this later.
+router.delete('/notes/delete/:id' , notes.deleteNote);
 
 router.get('/usernotes', usernotes.getAll);
 router.get('/usernotes/:userFbId', usernotes.getUserNotes);
