@@ -52,8 +52,10 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                             publicnotes.push(arrayItem);
                           }
                       });
-                      $('#public_list').show(); 
-                      $('#public_heading').show();
+                      if (publicnotes.length > 0){
+                         $('#public_heading').show();
+                         $('#public_list').show(); 
+                      }
                       $scope.privatenotesList = privatenotes;
                       $scope.publicnotesList = publicnotes;
                     },
@@ -92,8 +94,6 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     oldcoursecode = $scope.coursecode
     if (oldcoursecode == "PRIVATE"){
       oldcoursecode = ""
-    }else{
-      //console.log(oldcoursecode)
     }
   }
 
@@ -147,6 +147,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.titlereadonly = true;
           $scope.switchdisabled = true;
           $scope.coursecodereadonly = true;
+          $window.location.href = 'http://localhost:3000/courses/'+ $scope.coursecode.toUpperCase() +'/' + id
       },
       function(response) {
           console.log(JSON.stringify(response));
