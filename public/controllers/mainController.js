@@ -2,21 +2,23 @@ var app = angular.module("app", ["ngMaterial" , "angucomplete-alt"]);
 
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
+  var oldcoursecode = ""
    $scope.privacyAction = function(privacy){
     if(privacy){
        $scope.privacy = "PUBLIC";
+       $scope.coursecode = oldcoursecode
+       $scope.coursecodereadonly = false;
     }else{
-       $scope.privacy = "PRIVATE";
+       $scope.privacy = $scope.coursecode = "PRIVATE";
+       $scope.coursecodereadonly = true;
     }
   }
-
-  $scope.privacy = "PUBLIC";
   $scope.privacyToggle = true;
-
   $scope.gettingClient = function() {
     $scope.id = getId();
     $scope.titlereadonly = true;
     $scope.switchdisabled = true;
+    $scope.coursecodereadonly = true;
     $http({
       method: "GET",
           url: 'http://localhost:3000/api/note/' + getId()
@@ -25,20 +27,54 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.title = response.data.title;
           quill.setContents(JSON.parse(response.data.delta));
           quill.enable(false);
-          $scope.coursecode = response.data.coursecode;
+          $scope.coursecode_display = $scope.coursecode = response.data.coursecode;
           $scope.buttontitle = "Edit";
           $scope.privacy = response.data.privacyLevel;
-            $http({
-              method: "GET",
-                  url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
-              })
-              .then(function(response) {
-                $scope.notesList = response.data;
-                $scope.length = 3;
-              },
-              function(response) {
-                  alert("great failure");
-            });
+          if ($scope.privacy == "PRIVATE" || $scope.privacy == "private"){
+            $scope.privacyToggle = false
+          }
+
+          if ($scope.coursecode == "PRIVATE" || $scope.coursecode == "private"){
+               fbId = localStorage.getItem("fbId");
+                  $http({
+                    method: "GET",
+                        url: 'http://localhost:3000/api/usernotes/' + fbId
+                    })
+                    .then(function(response) {
+                      var privatenotes = [];
+                      var publicnotes = [];
+                      $('#private_a').html('PRIVATE')
+                      response.data.notes.forEach( function (arrayItem)
+                      {
+                          if (arrayItem.privacyLevel == "PRIVATE"){
+                            privatenotes.push(arrayItem);
+                          } else{
+                            publicnotes.push(arrayItem);
+                          }
+                      });
+                      $('#public_list').show(); 
+                      $('#public_heading').show();
+                      $scope.privatenotesList = privatenotes;
+                      $scope.publicnotesList = publicnotes;
+                    },
+                    function(response) {
+                        alert("great failure");
+                  });
+          } else{
+              $http({
+                method: "GET",
+                    url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
+                })
+                .then(function(response) {
+                      $('#public_list').hide(); 
+                      $('#public_heading').hide();
+                      $scope.privatenotesList = response.data;
+                  //$scope.length = 3;
+                },
+                function(response) {
+                    alert("great failure");
+              });
+          }
       },
       function(response) {
               alert(getId());
@@ -49,7 +85,36 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     quill.focus();
     $scope.titlereadonly = false;
     $scope.switchdisabled = false;
+    if ($scope.privacy == "PUBLIC"){
+      $scope.coursecodereadonly = false;
+    }
     $scope.buttontitle = "Publish";
+    oldcoursecode = $scope.coursecode
+    if (oldcoursecode == "PRIVATE"){
+      oldcoursecode = ""
+    }else{
+      //console.log(oldcoursecode)
+    }
+  }
+
+
+  $scope.deletenote = function(){
+    var noteid = $scope.id
+    console.log(noteid)
+    var url = 'http://localhost:3000/api/notes/delete/' + noteid
+     $http({
+          url: url,
+          method: "DELETE",
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+      })
+      .then(function(response) {
+        console.log(JSON.stringify(response));
+        $window.location.href = 'http://localhost:3000/'
+      },
+      function(response) {
+          console.log(JSON.stringify(response));
+          alert("great failure");
+      });
   }
 
 
@@ -57,29 +122,37 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
     var writing = quill.getText();
     var title = $scope.title;
-    var mydata = $.param({
-                "title" : title,
-                "writing" : writing,
-                "delta" : delta,
-                "privacyLevel": $scope.privacy
-               });
-    var url = 'http://localhost:3000/api/note/update/' + id
-    $http({
-        url: url,
-        method: "POST",
-        data: mydata,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-    })
-    .then(function(response) {
-        quill.enable(false);
-        $scope.buttontitle = "Edit";
-        $scope.titlereadonly = true;
-        $scope.switchdisabled = true;
-    },
-    function(response) {
-        console.log(JSON.stringify(response));
-        alert("great failure");
-    });
+    var coursecode = $scope.coursecode;
+    console.log(coursecode)
+    if (coursecode == "PRIVATE" && $scope.privacy == "PUBLIC"){
+      alert("Hey there, You cannot have the note public with the coursenote \"PRIVATE\". Please change the coursecode or the Privacy")
+    } else{
+      var mydata = $.param({
+                  "title" : title,
+                  "writing" : writing,
+                  "delta" : delta,
+                  "coursecode" : coursecode,
+                  "privacyLevel": $scope.privacy
+                 });
+      var url = 'http://localhost:3000/api/note/update/' + id
+      $http({
+          url: url,
+          method: "POST",
+          data: mydata,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+      })
+      .then(function(response) {
+          quill.enable(false);
+          $scope.buttontitle = "Edit";
+          $scope.titlereadonly = true;
+          $scope.switchdisabled = true;
+          $scope.coursecodereadonly = true;
+      },
+      function(response) {
+          console.log(JSON.stringify(response));
+          alert("great failure");
+      });
+    }
   }
 
   $scope.togglefunction = function(){

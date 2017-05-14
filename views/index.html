@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <html lang="en">
 <head>
@@ -32,12 +34,36 @@
 			</div>
 		</div>
 
+		<div ng-cloak>
+		<li id="private_heading">
+			<div class="userView">
+		    	<a class="active" href="http://localhost:3000/">PRIVATE</a>
+		    	<p id="priv_message"> You don't have any private notes! </p>
+		   </div>
+		</li>
+
 		<ul>
-		    <div ng-repeat="item in notesList">
+		    <div ng-repeat="item in privatenotesList">
 				<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
 				<li><div class="divider"></div></li>
 			</div>
 	    </ul>
+
+	    <li id="public_heading">
+			<div class="userView">
+		    	<a class="active" href="http://localhost:3000/">PUBLIC</a>
+		    	<p id="priv_message2"> You don't have any public notes! </p>
+		   </div>
+		</li>
+
+		<ul>
+		    <div ng-repeat="item in publicnotesList">
+				<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a></li>
+				<li><div class="divider"></div></li>
+			</div>
+	    </ul>
+	    </div>
+
 
 	 	</ul>
 
@@ -55,7 +81,7 @@
 				</div>
 
 				<div class="child" id="inset" ng-cloak>
-					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" class="md-warn">
+					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" aria-label="Switch" class="md-warn">
 						{{ privacy }}
 					</md-switch>
 				</div>

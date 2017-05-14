@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html ng-app = "app">
 <head>
 	<title>Sendat Note</title>
@@ -54,7 +56,7 @@
 
 				<div class="child">
 					<h3 class="inline" id="coursecode_label"></h3>
-					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code">
+					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" ng-readonly="coursecodereadonly" placeholder="Course Code">
 				</div>
 
 				<div class="child" id="inset" ng-cloak>

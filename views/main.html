@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html ng-app = "app">
 <head>
 	<title>Sendat Main</title>
@@ -29,17 +31,33 @@
 					 <img id="search_img" src="/public/images/search5.svg" width="32px">
 				</div>
 			</div>
+
 		    <li><div class="userView">
-		      <a class="active" href="http://localhost:3000/courses/{{coursecode}}">{{coursecode}}</a>
+		      <a id="private_a" class="active" href="http://localhost:3000/courses/{{coursecode}}">{{coursecode_display}}</a>
 		    </div></li>
 
 		    <ul>
-			    <div ng-repeat="item in notesList">
+			    <div id="private_list" ng-repeat="item in privatenotesList">
 					<li><a  id="a_notes" href="" ng-click="setNew(item._id)" class="waves effect font"><i class="material-icons">assignment</i>{{item.title | limitTo:17}}</a></li>
 
 					<li><div class="divider"></div></li>
 				</div>
 		    </ul>
+
+		    <li>
+				<div id="public_heading" class="userView">
+			    	<a class="active" href="http://localhost:3000/">PUBLIC</a>
+			   </div>
+			</li>
+
+			<ul>
+			    <div id="public_list" ng-repeat="item in publicnotesList">
+					<li><a class="waves effect font" href="http://localhost:3000/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a>
+					</li>
+					<li><div class="divider"></div></li>
+				</div>
+	    	</ul>
+
 	 	</ul>
 
 		<div id="container">
@@ -52,11 +70,11 @@
 
 				<div class="child">
 					<h3 class="inline" id="coursecode_label"></h3>
-					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code" readonly>
+					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" placeholder="Course Code" ng-readonly="coursecodereadonly">
 				</div>
 
 				<div class="child" id="inset" ng-cloak>
-					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" ng-disabled="switchdisabled" class="md-warn">
+					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" aria-label="Switch" ng-disabled="switchdisabled" class="md-warn">
 						{{privacy}}
 					</md-switch>
 				</div>
@@ -69,6 +87,7 @@
 
 				<div id="pubbutdiv" class="inline">
 			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="togglefunction()">{{buttontitle}}</md-button>
+			   		 <i id="delete_icon" class="material-icons" ng-click="deletenote()">delete_forever</i>
 				</div>
 
 			</div>

@@ -1,4 +1,8 @@
 import Parchment from 'parchment';
+// let Parchment = Quill.import('parchment');
+// var Module = Quill.import('core/module');
+// var Quill = Quill.import('core/Quill');
+// var CodeBlock = Quill.import('formats/code');
 import Quill from '../core/quill';
 import Module from '../core/module';
 import CodeBlock from '../formats/code';

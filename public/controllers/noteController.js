@@ -1,34 +1,53 @@
 var app = angular.module("app", ["ngMaterial", "ng","ngAnimate","ngAria", "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
+  var oldcoursecode = ""
   $scope.changeText = function(model){
                           if(model){
-                             $scope.text = "Public";
+                             $scope.text = "PUBLIC";
+                             $scope.coursecode = oldcoursecode;
+                             $scope.coursecodereadonly = false;
+
                           }else{
-                             $scope.text = "Private"
+                             $scope.text = $scope.coursecode = "PRIVATE";
+                             $scope.coursecodereadonly = true;
+
                           }
                       }
 
-  $scope.text = "Private";
+  $scope.text = "PUBLIC";
+  $scope.model = true
 
   $scope.proceed = function() {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     var text = quill.getText();
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
+    var coursecode = $scope.coursecode;
+    coursecode = coursecode.replace(/\s+/g,'');
+    if (coursecode == ""){
+      coursecode = "PRIVATE";
+    }
+    console.log(coursecode)
     var mydata = $.param({
                 "title": $scope.title,
                 "writing": text,
-                "coursecode": $scope.coursecode.toUpperCase().replace(/\s+/g, ''),
+                "coursecode": coursecode,
                 "delta": delta,
                 "privacyLevel": $scope.text  // TODO
-                  });
+                });
     $http({
         url: 'http://localhost:3000/api/note',
         method: "POST",
         data: mydata
     })
     .then(function(response) {
-        $window.location.href = 'http://localhost:3000/courses/' + $scope.coursecode + "/" + response.data;
+        if (coursecode == "PRIVATE"){
+          $window.location.href = 'http://localhost:3000/'
+        } else{
+          $window.location.href = 'http://localhost:3000/courses/' + coursecode + "/" + response.data;
+        }
+        
+        
     },
     function(response) {
         alert("great failure");
@@ -50,7 +69,9 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.gettingClient = function() {
     $scope.coursecode = getCourseCode();
-    $scope.coursecode_display = getCourseCode();
+    oldcoursecode = $scope.coursecode_display = getCourseCode();
+    $scope.coursecodereadonly = false;
+
 
     $http({
       method: "GET",
@@ -64,7 +85,6 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     });
   }
 
-
   $scope.selectedObject = function(x) {
     if(x.originalObject.type === "coursecode") {
       $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
@@ -72,5 +92,4 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
       $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
     }
   }
-
 }]);

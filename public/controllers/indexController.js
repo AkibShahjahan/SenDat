@@ -9,7 +9,6 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
        $scope.coursecode = "";
     }
   }
-
   $scope.privacy = "PUBLIC";
   $scope.privacyToggle = true;
 
@@ -19,7 +18,25 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           url: 'http://localhost:3000/api/usernotes/' + fbId
       })
       .then(function(response) {
-        $scope.notesList = response.data.notes;
+        var privatenotes = [];
+        var publicnotes = [];
+        response.data.notes.forEach( function (arrayItem)
+        {
+            if (arrayItem.privacyLevel == "PRIVATE"){
+              privatenotes.push(arrayItem);
+            } else{
+              publicnotes.push(arrayItem);
+            }
+        });
+        console.log(privatenotes.length)
+        if (privatenotes.length > 0){
+          $('#private_heading').show();
+        }
+        if (publicnotes.length > 0){
+          $('#public_heading').show();
+        }
+        $scope.privatenotesList = privatenotes;
+        $scope.publicnotesList = publicnotes;
       },
       function(response) {
           alert("great failure");
@@ -33,7 +50,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     var coursecode = $scope.coursecode;
     coursecode = coursecode.replace(/\s+/g,'');
     if (coursecode == ""){
-      coursecode = "private";
+      coursecode = "PRIVATE";
     }
     var mydata = $.param({
                 "title": $scope.title,

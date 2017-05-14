@@ -100,9 +100,10 @@ var notes = {
     var delta = req.body.delta;
     var writing = req.body.writing;
     var privacyLevel = req.body.privacyLevel;
+    var coursecode = req.body.coursecode;
     var title = req.body.title;
     console.log(req.body);
-    Note.findOneAndUpdate({ _id : id } , { $set : { "delta": delta , "writing": writing, "title" : title , "privacyLevel" : privacyLevel}}, {new: true}, function(err,doc){
+    Note.findOneAndUpdate({ _id : id } , { $set : { "delta": delta , "writing": writing, "title" : title , "coursecode" : coursecode,  "privacyLevel" : privacyLevel}}, {new: true}, function(err,doc){
       if(err){
         console.log("Something wrong when updating data!");
        }
@@ -113,9 +114,16 @@ var notes = {
 
   deleteNote: function(req,res){
     var id = req.params.id;
+    console.log(id)
     Note.findById(id,function(err,notefound){
-      notefound.remove();
+      if (notefound){
+        notefound.remove();
+        res.send("success")
+      } else{
+        res.send("failure")
+      }
     });
+    
   },
 
   deleteAll: function(req, res) {

@@ -6,9 +6,10 @@
 			console.log("main day = " + day);
 
 			//Random Amber
+			// Changing monday (day 0) to lighten-4 change it back to lighten-1 or think of an alternative.
 
 			if(day === 0){
-				color_value = "orange lighten-4";
+				color_value = "orange lighten-1";
 			}
 			else if(day === 1){
 				color_value = "orange accent-1";
