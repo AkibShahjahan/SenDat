@@ -128,7 +128,7 @@ var notes = {
         res.send("failure")
       }
     });
-    
+
   },
 
   deleteAll: function(req, res) {

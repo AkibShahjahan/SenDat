@@ -86,16 +86,16 @@
 
 		<script type="text/javascript">
 			var quill = new Quill('#editor', {
-			 	modules: {
+				modules: {
 					syntax: true,              // Include syntax module
-					toolbar: ['bold', 'italic', 'underline', 'link', 'image',{ 'header': [1, 2, 3, 4, 5, 6, false] },
+					formula: true,
+					toolbar: ['bold', 'italic', 'underline', 'link', 'formula', 'image',{ 'header': [1, 2, 3, 4, 5, 6, false] },
 					'blockquote','code-block',{ 'color': [] }, { 'background': [] }, { 'font': [] },{ 'align': [] },'clean',{ 'list': 'ordered'}, { 'list': 'bullet' }]
 				},
-			  theme: 'bubble',
-			  placeholder : "Write Here"
+				theme: 'bubble',
+				placeholder : "Write Here"
 			});
 		</script>
 
 	</body>
 </html>
-
