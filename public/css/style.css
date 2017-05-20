@@ -31,12 +31,14 @@ body{
 	display: none;
 }
 
-.container {
+#container {
   border: 0px solid #ccc;
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
 }
+
+/**/
 
 #centerdiv{
   margin-top: 30px;
@@ -249,6 +251,10 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
     font-family: 'Oswald' ,sans-serif ;
     margin-left: 50px;
     font-size: 20px;
+}
+
+#slide-out{
+	z-index: 0;
 }
 
 #inputdiv_note{
