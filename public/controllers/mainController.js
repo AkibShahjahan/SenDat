@@ -54,7 +54,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                       });
                       if (publicnotes.length > 0){
                          $('#public_heading').show();
-                         $('#public_list').show(); 
+                         $('#public_list').show();
                       }
                       $scope.privatenotesList = privatenotes;
                       $scope.publicnotesList = publicnotes;
@@ -68,7 +68,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                     url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
                 })
                 .then(function(response) {
-                      $('#public_list').hide(); 
+                      $('#public_list').hide();
                       $('#public_heading').hide();
                       $scope.privatenotesList = response.data;
                   //$scope.length = 3;
@@ -163,7 +163,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     if($scope.buttontitle === "Edit"){
       $scope.editContent();
     }
-    
+
   }
 
   $scope.setNew = function(id) {
