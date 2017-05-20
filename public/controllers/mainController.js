@@ -22,7 +22,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     $scope.coursecodereadonly = true;
     $http({
       method: "GET",
-          url: 'http://localhost:3000/api/note/' + getId()
+          url: '/api/note/' + getId()
       })
       .then(function(response) {
           $scope.title = response.data.title;
@@ -45,7 +45,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                fbId = localStorage.getItem("fbId");
                   $http({
                     method: "GET",
-                        url: 'http://localhost:3000/api/usernotes/' + fbId
+                        url: '/api/usernotes/' + fbId
                     })
                     .then(function(response) {
                       var privatenotes = [];
@@ -72,7 +72,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           } else{
               $http({
                 method: "GET",
-                    url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
+                    url: '/api/notes/course/' + $scope.coursecode.toUpperCase()
                 })
                 .then(function(response) {
                       $('#public_list').hide();
@@ -108,7 +108,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.deletenote = function(){
     var noteid = $scope.id
     console.log(noteid)
-    var url = 'http://localhost:3000/api/notes/delete/' + noteid
+    var url = '/api/notes/delete/' + noteid
      $http({
           url: url,
           method: "DELETE",
@@ -116,7 +116,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
       })
       .then(function(response) {
         console.log(JSON.stringify(response));
-        $window.location.href = 'http://localhost:3000/'
+        $window.location.href = '/'
       },
       function(response) {
           console.log(JSON.stringify(response));
@@ -145,7 +145,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                   "coursecode" : coursecode,
                   "privacyLevel": $scope.privacy
                  });
-      var url = 'http://localhost:3000/api/note/update/' + id
+      var url = '/api/note/update/' + id
       $http({
           url: url,
           method: "POST",
@@ -158,7 +158,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.titlereadonly = true;
           $scope.switchdisabled = true;
           $scope.coursecodereadonly = true;
-          $window.location.href = 'http://localhost:3000/courses/'+ $scope.coursecode.toUpperCase() +'/' + id
+          $window.location.href = '/courses/'+ $scope.coursecode.toUpperCase() +'/' + id
       },
       function(response) {
           console.log(JSON.stringify(response));
@@ -180,7 +180,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.setNew = function(id) {
     $http({
       method: "GET",
-      url: "http://localhost:3000/api/note/" + id
+      url: "/api/note/" + id
     })
     .then(function(response) {
         $scope.title = response.data.title;
@@ -209,9 +209,9 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.selectedObject = function(x) {
     if(x.originalObject.type === "coursecode") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+      $window.location.href = '/courses/' + x.originalObject.title;
     } else if(x.originalObject.type === "title") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+      $window.location.href = '/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
     }
   }
 

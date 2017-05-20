@@ -36,18 +36,18 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
                 "privacyLevel": $scope.text  // TODO
                 });
     $http({
-        url: 'http://localhost:3000/api/note',
+        url: '/api/note',
         method: "POST",
         data: mydata
     })
     .then(function(response) {
         if (coursecode == "PRIVATE"){
-          $window.location.href = 'http://localhost:3000/'
+          $window.location.href = '/'
         } else{
-          $window.location.href = 'http://localhost:3000/courses/' + coursecode + "/" + response.data;
+          $window.location.href = '/courses/' + coursecode + "/" + response.data;
         }
-        
-        
+
+
     },
     function(response) {
         alert("great failure");
@@ -75,7 +75,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
     $http({
       method: "GET",
-          url: 'http://localhost:3000/api/notes/course/' + $scope.coursecode.toUpperCase()
+          url: '/api/notes/course/' + $scope.coursecode.toUpperCase()
       })
       .then(function(response) {
         $scope.notesList = response.data;
@@ -87,9 +87,9 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.selectedObject = function(x) {
     if(x.originalObject.type === "coursecode") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.title;
+      $window.location.href = '/courses/' + x.originalObject.title;
     } else if(x.originalObject.type === "title") {
-      $window.location.href = 'http://localhost:3000/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
+      $window.location.href = '/courses/' + x.originalObject.coursecode.toUpperCase() + "/" + x.originalObject.id;
     }
   }
 }]);
