@@ -64,6 +64,10 @@ var notes = {
     }
     var date= new Date();
 		var currentTime = date.toUTCString();
+    if (! coursecode || ! title || ! delta || ! writing) {
+      res.send({error: "Something went wrong"});
+      res.status(400);
+    }
     var newNote = {
         writing: writing,
         title: title,
@@ -91,6 +95,7 @@ var notes = {
         NoteRecord.create(newNoteRecord);
       } else {
         res.send({error: "Something went wrong"});
+        res.status(400);
       }
     });
   },

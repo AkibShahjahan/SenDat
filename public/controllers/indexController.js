@@ -46,14 +46,20 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.proceed = function() {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     var text = quill.getText();
+    console.log(text)
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
     var coursecode = $scope.coursecode;
+    var title = $scope.title;
+    if (! coursecode || ! title || ! delta || text == "\n" ){
+      $("#error_message").show();
+      return;
+    }
     coursecode = coursecode.replace(/\s+/g,'');
     if (coursecode == ""){
       coursecode = "PRIVATE";
     }
     var mydata = $.param({
-                "title": $scope.title,
+                "title": title,
                 "writing": text,
                 "coursecode" : coursecode,
                 "delta": delta,
