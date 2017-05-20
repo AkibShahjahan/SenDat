@@ -4,13 +4,17 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
   $scope.privacyAction = function(privacy){
     if(privacy){
        $scope.privacy = "PUBLIC";
+       $scope.coursecode = $scope.courseHidden;
     }else{
        $scope.privacy = "PRIVATE";
+       $scope.courseHidden = $scope.coursecode;
        $scope.coursecode = "";
     }
   }
+
   $scope.privacy = "PUBLIC";
   $scope.privacyToggle = true;
+  $scope.courseHidden = "";
 
   $scope.gettingUserNotes = function(fbId) {
     $http({
