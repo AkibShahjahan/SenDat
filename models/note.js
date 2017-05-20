@@ -3,6 +3,7 @@ var NoteRecord = require("./noteRecord.js")
 var mongoose = require("mongoose");
 
 var noteSchema = new mongoose.Schema({
+    author: String,
     writing: String,
     title : String,
     coursecode: String,

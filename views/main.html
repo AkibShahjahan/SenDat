@@ -21,7 +21,7 @@
 		              remote-url="http://localhost:3000/api/notes/find/search?q="
 		              remote-url-data-field="results"
 		              title-field="title"
-		              description-field=""
+		              description-field="description"
 		              minlength = "2"
 		              background = "#FDD835"
 		              input-class="form-control form-control-small"/>
@@ -86,8 +86,9 @@
 				</div>
 
 				<div id="pubbutdiv" class="inline">
-			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="togglefunction()">{{buttontitle}}</md-button>
-			   		 <i id="delete_icon" class="material-icons" ng-click="deletenote()">delete_forever</i>
+			   		 <md-button  id="publishbutton" class="md-raised md-primary black" ng-click="togglefunction()" ng-hide='!myNote'>{{buttontitle}}</md-button>
+			   		 <i id="delete_icon" class="material-icons" ng-click="deletenote()" ng-hide='!myNote'>delete_forever</i>
+						 <p id="error_message">Please complete all the fields to publish the Note.</p>
 				</div>
 
 			</div>

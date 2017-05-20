@@ -12,6 +12,10 @@ var users = {
   },
   getUserNotes: function(req, res) {
     var userFbId = req.params.userFbId;
+    if(req.user.facebook.id !== req.params.userFbId) {
+      res.json({error: "Not Authorized"});
+      res.status(401);
+    }
     UserNotes.findOne({"userFbId": userFbId}).populate("notes").exec(function(err, usernotes){
       if(usernotes){
         res.json(usernotes);

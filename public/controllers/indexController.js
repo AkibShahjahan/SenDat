@@ -8,7 +8,7 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
     }else{
        $scope.privacy = "PRIVATE";
        $scope.courseHidden = $scope.coursecode;
-       $scope.coursecode = "";
+       $scope.coursecode = "PRIVATE";
     }
   }
 
@@ -59,11 +59,9 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
       return;
     }
     coursecode = coursecode.replace(/\s+/g,'');
-    if (coursecode == ""){
-      coursecode = "PRIVATE";
-    }
     var mydata = $.param({
                 "title": title,
+                "author": localStorage.getItem("name"),
                 "writing": text,
                 "coursecode" : coursecode,
                 "delta": delta,

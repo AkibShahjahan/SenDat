@@ -3,7 +3,8 @@ var app = angular.module("app", ["ngMaterial" , "angucomplete-alt"]);
 app.controller("MainController", ["$scope", "$http", '$window', function($scope, $http, $window) {
 
   var oldcoursecode = ""
-   $scope.privacyAction = function(privacy){
+  $scope.myNote = false;
+  $scope.privacyAction = function(privacy){
     if(privacy){
        $scope.privacy = "PUBLIC";
        $scope.coursecode = oldcoursecode
@@ -30,6 +31,12 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
           $scope.coursecode_display = $scope.coursecode = response.data.coursecode;
           $scope.buttontitle = "Edit";
           $scope.privacy = response.data.privacyLevel;
+          if(localStorage.getItem('fbId') === response.data.ownerFbId) {
+            $scope.myNote = true;
+          } else {
+            $scope.myNote = false;
+          }
+
           if ($scope.privacy == "PRIVATE" || $scope.privacy == "private"){
             $scope.privacyToggle = false
           }
@@ -120,16 +127,20 @@ app.controller("MainController", ["$scope", "$http", '$window', function($scope,
 
   $scope.proceed = function(id) {
     var delta = JSON.stringify(quill.getContents()); // have to stringify if we want pass it as a parameter
-    var writing = quill.getText();
+    var text = quill.getText();
     var title = $scope.title;
     var coursecode = $scope.coursecode;
     console.log(coursecode)
+    if (! coursecode || ! title || ! delta || text == "\n" ){
+      $("#error_message").show();
+      return;
+    }
     if (coursecode == "PRIVATE" && $scope.privacy == "PUBLIC"){
       alert("Hey there, You cannot have the note public with the coursenote \"PRIVATE\". Please change the coursecode or the Privacy")
     } else{
       var mydata = $.param({
                   "title" : title,
-                  "writing" : writing,
+                  "writing" : text,
                   "delta" : delta,
                   "coursecode" : coursecode,
                   "privacyLevel": $scope.privacy

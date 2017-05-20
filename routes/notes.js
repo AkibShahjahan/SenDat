@@ -57,6 +57,7 @@ var notes = {
     var coursecode = req.body.coursecode;
     var delta = req.body.delta;
     var privacyLevel = req.body.privacyLevel;
+    var author = req.body.author;
     var rankScore = 0;
     if(coursecode) {
         coursecode = coursecode.toUpperCase();
@@ -64,11 +65,12 @@ var notes = {
     }
     var date= new Date();
 		var currentTime = date.toUTCString();
-    if (! coursecode || ! title || ! delta || ! writing) {
+    if (! coursecode || ! title || ! delta || ! writing || ! author) {
       res.send({error: "Something went wrong"});
       res.status(400);
     }
     var newNote = {
+        author: author,
         writing: writing,
         title: title,
         coursecode: coursecode,
@@ -122,8 +124,13 @@ var notes = {
     console.log(id)
     Note.findById(id,function(err,notefound){
       if (notefound){
-        notefound.remove();
-        res.send("success")
+        if(req.user.facebook.id !== notefound.ownerFbId) {
+          res.json({error: "Not Authorized"});
+          res.status(401);
+        } else {
+          notefound.remove();
+          res.send("success")
+        }
       } else{
         res.send("failure")
       }
@@ -145,6 +152,10 @@ var notes = {
   })
   },
   search: function(req, res) {
+    // 1. Get all the courses related to the coursecode
+    // 2. Filters out all the repeated coursecodes
+    // 3. Searches by titles based on note ranking
+    // 4. Filter out repeated notes
     Note.find({"coursecode": new RegExp(req.query.q, "i")}, function(err, notes) {
       var newArr = [];
       var index = 0;
@@ -155,7 +166,7 @@ var notes = {
             newArr[index++] = {
               id: notes[i]._id,
               title: notes[i].coursecode,
-              type: "coursecode"
+              description: "Course"
             }
           }
         }
@@ -169,7 +180,7 @@ var notes = {
               id: moreNotes[i]._id,
               title: moreNotes[i].title,
               coursecode: moreNotes[i].coursecode,
-              type: "title"
+              description: "Note - " + moreNotes[i].author,
             }
           }
         }
