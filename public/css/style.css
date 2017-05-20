@@ -13,6 +13,13 @@ body{
 *:focus {outline: 0;}
 
 
+#error_message{
+	display: none;
+	color: red;
+	font-size: 15px;
+	margin-top: 50px;
+}
+
 #priv_message , #priv_message2{
 	font-size: 18px;
 	font-family:'Ubuntu', sans-serif;
