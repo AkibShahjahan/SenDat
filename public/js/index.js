@@ -42,7 +42,7 @@ $('document').ready(function() {
 
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '242993122827489',
+			appId      : '194473814346087',
 			xfbml      : true,
 			version    : 'v2.8'
 		});
