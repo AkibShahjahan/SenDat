@@ -43,13 +43,10 @@ $('document').ready(function() {
 			//'242993122827489',
 	window.fbAsyncInit = function() {
 		FB.init({
-<<<<<<< HEAD
-			appId      : '700540203447896',
+			appId      : '194473814346087',
+			//'700540203447896',
 			//'194473814346087',
 			cookie     : true,
-=======
-			appId      : '194473814346087',
->>>>>>> a218aa51aee1fb02dc05c1fdc94955d42b3f440a
 			xfbml      : true,
 			version    : 'v2.8'
 		});
