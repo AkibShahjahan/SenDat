@@ -16,8 +16,9 @@ module.exports = function(passport) {
         });
     });
 
+    console.log(configAuth.facebookAuth.clientID)
 	passport.use(new FacebookStrategy({
-		clientID        : configAuth.facebookAuth.clientID,
+	clientID        : configAuth.facebookAuth.clientID,
     clientSecret    : configAuth.facebookAuth.clientSecret,
     callbackURL     : configAuth.facebookAuth.callbackURL,
     profileFields		: ['id', 'emails', 'name'],
