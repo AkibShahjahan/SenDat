@@ -40,9 +40,12 @@ $('document').ready(function() {
 		}
 	};
 
+			//'242993122827489',
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '242993122827489',
+			appId      : '700540203447896',
+			//'194473814346087',
+			cookie     : true,
 			xfbml      : true,
 			version    : 'v2.8'
 		});
