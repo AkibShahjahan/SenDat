@@ -43,7 +43,7 @@ $('document').ready(function() {
 			//'242993122827489',
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '700540203447896',
+			appId      : '648284028709847',
 			//'700540203447896',
 			//'194473814346087',
 			cookie     : true,
