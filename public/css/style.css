@@ -17,7 +17,8 @@ body{
 #error_message{
 	display: none;
 	color: red;
-	font-size: 15px;
+	font-size: 1em;
+	margin-left: 8%;
 	margin-top: 50px;
 }
 
@@ -42,9 +43,8 @@ body{
 /**/
 
 #centerdiv{
-  margin-top: 30px;
-  margin-right: 25%;
-  margin-left: 25%;
+  margin-right: 26%;
+  margin-left: 20%;
 }
 
 .inline{
@@ -52,22 +52,20 @@ body{
 }
 
 #totalsearch{
-	margin-top: 20px;
-	margin-left: 30px;
-	margin-right: 49px;
+	margin-top: 7%;
+	margin-left: 11%;
+	margin-right: 11%;
 	padding-right: 0px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	border: 3px black solid;
-	height: 46px;
+	height: 6.5%;
+	display: -webkit-inline-box;
 }
 
 #head-div {
-	width: 79%;
+	width: 80%;
 	height: 44px;
-	top: auto;
-	margin-top: -30px;
-	padding-left: 5px;
-	padding-right: 20px;
+	padding-top: 7px;
 	box-sizing: border-box;
 }
 
@@ -109,8 +107,8 @@ body{
 	padding-left: 5px;
 	margin-bottom: 0px !important;
 	border-bottom: 0px !important;
-	font-family: 'Dosis' ,sans-serif ;
-	font-size: 26px;
+	font-family:'Ubuntu', sans-serif;
+	font-size: 1.5em;
 	box-sizing: border-box;
 	align-self: center;
 	box-shadow: none !important;
@@ -123,9 +121,8 @@ body{
 
 #searchicon{
 	/*padding-top: 10px;*/
-	padding-left: 5px;
-	height: 40px;
-	width: 40px;
+	height: 90%;
+	width: 20%;
 	background-color: #fff;
 }
 
@@ -135,9 +132,9 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 }
 
 #title_bar{
-	width: 50%;
+	width: 35%;
 	margin-bottom: 25px;
-	margin-left: 20%;
+	margin-left: 15%;
 	height: auto;
 }
 
@@ -147,15 +144,16 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 
 #kant{
 	padding: 5px;
-	margin-top: -170px;
+	margin-top: -10%;
 	width: 400px;
 	float: right;
-	margin-right: 100px;
+	margin-right: 24%;
 }
 
 #pubbutdiv {
+	margin-left: 22%;
 	float: left;
-	width : 160px;
+	width : 26%;
 	height: 50px;
 }
 
@@ -177,11 +175,14 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 }
 
 #inset{
-	padding-left: 100px;
+	padding-left: 16%;
 	font-size :  18px;
 	font-family :'Ubuntu', sans-serif;
 	 color : #8F8F8F;
+}
 
+.md-small{
+	min-width: 1%;
 }
 
 #coursecode_label{
@@ -196,8 +197,8 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 
 #titlebox {
 	border: 0px solid;
-	font-size: 30px;
-	height: 35px;
+	font-size: 1.8em;
+	height: 30px;
 	max-width: 500px;
 	margin-top: 20px;
 	padding-top: 10px;
@@ -213,7 +214,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 #coursebox {
 	width: 200px;
 	border: 0px solid;
-	font-size: 20px;
+	font-size: 1.2em;
 	padding-top: 10px;
 	padding-left : 10px;
 	padding-bottom: 10px;
@@ -256,6 +257,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 
 #slide-out{
 	z-index: 0;
+	width: 19%;
 }
 
 #inputdiv_note{
@@ -329,7 +331,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 }
 
 #name{
-	font-size: 20px;
+	font-size: 1.2em;
 	padding: 10px;
     font-family: 'Oxygen' ,sans-serif ;
     color: black;

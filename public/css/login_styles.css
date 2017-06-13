@@ -8,8 +8,8 @@ html {
 }
 
 #container{
-	margin-top: 200px;
-	margin-left: 100px;
+	margin-top: 10%;
+	margin-left: 8%;
 }
 
 #heading{
@@ -18,22 +18,22 @@ html {
 }
 
 #para {
-	margin-top: 50px;
+	margin-top: 4%;
 }
 
 #line1{
 	font-family: 'Ubuntu', sans-serif;
-	font-size: 33px;
+	font-size: 1.9em;
 
 }
 
 #line2{
 	font-family: 'Ubuntu', sans-serif;
-	font-size: 33px;
+	font-size: 1.9em;
 }
 #heading_text{
 	font-family: 'Montserrat', sans-serif;
-	font-size: 78px;
+	font-size: 5em;
 }
 
 #login_modal{
@@ -47,22 +47,22 @@ html {
 }
 
 #login{
-	font-size: 40px;
+	font-size: 2.2em;
 	color: black;
-	margin-left: 30px;
+	margin-left: 2%;
 	font-family: 'Oswald' ,sans-serif;
 }
 
 #signup {
 	font-family: 'Ubuntu', sans-serif;
-	font-size: 33px;
+	font-size: 1.9em;
 	text-decoration: none;
 	color: black;
 }
 
 #signup:hover {
 	font-family: 'Ubuntu', sans-serif;
-	font-size: 33px;
+	font-size: 1.9em;
 	font-weight : bold;
 	color: #3B5998;
 }

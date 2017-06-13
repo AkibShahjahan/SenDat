@@ -5,7 +5,6 @@
 <head>
 	<title>Sendat Index</title>
 	<link rel="import" href="/public/partials/header.html" >
-	<script src="/public/ASCIIMathML.js"></script>
 	<script src="/public/controllers/indexController.js"></script>
 	<script src="/public/js/index.js"></script>
 </head>
@@ -16,7 +15,7 @@
 		<ul id="slide-out" class="side-nav fixed">
 
 		<div id="totalsearch">
-			<div id="head-div" class="inline">
+			<div id="head-div" class="inline-block">
 				<angucomplete-alt
 				  id="searchbar"
 	              pause="400"
@@ -30,7 +29,7 @@
 	              background = "#FDD835"
 	              input-class="form-control form-control-small"/>
 			</div>
-			<div id="searchicon" class="inline">
+			<div id="searchicon" class="inline-block">
 				 <!-- <img src="https://maxcdn.icons8.com/iOS7/PNG/32/Very_Basic/search_filled-32.png" title="Search Filled" width="32"> -->
 				 <img id="search_img" src="/public/images/search5.svg" width="32px">
 			</div>
@@ -82,8 +81,8 @@
 					<input class="inline" type="text"  id="coursebox" ng-model="coursecode" ng-disabled="!privacyToggle" placeholder="Course Code">
 				</div>
 
-				<div class="child" id="inset" ng-cloak>
-					<md-switch ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" aria-label="Switch" class="md-warn">
+				<div class="child md-small" id="inset" ng-cloak>
+					<md-switch  ng-model="privacyToggle" ng-change="privacyAction(privacyToggle)" aria-label="Switch" class="md-warn">
 						{{ privacy }}
 					</md-switch>
 				</div>
