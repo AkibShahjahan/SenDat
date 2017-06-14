@@ -160,7 +160,7 @@ input:not([type]), input[type=text]:focus, input[type=password], input[type=emai
 #delete_icon{
 	float: right;
 	font-size: 40px !important;
-	margin-top: 6px;
+	margin-top: 50%;
 	cursor: pointer; cursor: hand;
 }
 
