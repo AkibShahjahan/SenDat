@@ -58,7 +58,7 @@
 		<ul id="slide-out" class="side-nav fixed ">
 
 			<div id="totalsearch">
-				<div id="head-div" class="inline">
+				<div id="head-div">
 					<angucomplete-alt
 					  id="searchbar"
 		              pause="400"
@@ -72,7 +72,7 @@
 		              background = "#FDD835"
 		              input-class="form-control form-control-small"/>
 				</div>
-				<div id="searchicon" class="inline">
+				<div id="searchicon">
 					 <!-- <img src="https://maxcdn.icons8.com/iOS7/PNG/32/Very_Basic/search_filled-32.png" title="Search Filled" width="32"> -->
 					 <img id="search_img" src="/public/images/search5.svg" width="32px">
 				</div>
@@ -84,7 +84,7 @@
 
 		    <ul>
 			    <div id="private_list" ng-repeat="item in privatenotesList">
-					<li><a  id="a_notes" href="" ng-click="setNew(item._id)" class="waves effect font"><i class="material-icons">assignment</i>{{item.title | limitTo:17}}</a></li>
+					<li><a  id="a_notes" href="" ng-click="setNew(item._id)" class="waves effect font"><i class="material-icons">assignment</i>{{item.title.substring(0,13)| limitTo:17}}</a></li>
 
 					<li><div class="divider"></div></li>
 				</div>
@@ -98,7 +98,7 @@
 
 			<ul>
 			    <div id="public_list" ng-repeat="item in publicnotesList">
-					<li><a class="waves effect font" href="/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title}}</a>
+					<li><a class="waves effect font" href="/courses/{{item.coursecode}}/{{item._id}}"><i class="material-icons">assignment</i>{{item.title.substring(0,13)}}</a>
 					</li>
 					<li><div class="divider"></div></li>
 				</div>
